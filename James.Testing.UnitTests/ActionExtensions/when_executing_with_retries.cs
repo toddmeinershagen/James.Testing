@@ -6,7 +6,7 @@ using NUnit.Framework;
 namespace James.Testing.UnitTests.ActionExtensions
 {
     [TestFixture]
-    public class when_executing : BaseTest
+    public class when_executing_with_retries : BaseTest
     {
         [Test]
         public void given_an_action_that_does_not_throw_should_complete_action()
@@ -14,7 +14,7 @@ namespace James.Testing.UnitTests.ActionExtensions
             var counter = 0;
             Action action = () => counter++;
 
-            action.Execute();
+            action.ExecuteWithRetries();
 
             counter.Should().Be(1);
         }
@@ -25,7 +25,7 @@ namespace James.Testing.UnitTests.ActionExtensions
             var counter = 0;
             Action action = () => counter++;
 
-            Action outerAction = () => action.Execute();
+            Action outerAction = () => action.ExecuteWithRetries();
 
             outerAction.ShouldNotThrow();
         }
@@ -37,7 +37,7 @@ namespace James.Testing.UnitTests.ActionExtensions
             const int times = 5;
             Action action = () => counter++;
 
-            action.Execute(times);
+            action.ExecuteWithRetries(times);
 
             counter.Should().Be(1);
         }
@@ -49,7 +49,7 @@ namespace James.Testing.UnitTests.ActionExtensions
             const int times = 5;
             Action action = () => counter++;
 
-            Action outerAction = () => action.Execute(times);
+            Action outerAction = () => action.ExecuteWithRetries(times);
 
             outerAction.ShouldNotThrow();
         }
@@ -65,7 +65,7 @@ namespace James.Testing.UnitTests.ActionExtensions
                 throw new Exception();
             };
 
-            Gulp(() => action.Execute(times));
+            Gulp(() => action.ExecuteWithRetries(times));
 
             counter.Should().Be(5);
         }
@@ -86,7 +86,7 @@ namespace James.Testing.UnitTests.ActionExtensions
 
             var watch = new Stopwatch();
             watch.Start();
-            Gulp(() => action.Execute(times, waitTimeInSeconds));
+            Gulp(() => action.ExecuteWithRetries(times, waitTimeInSeconds));
             watch.Stop();
 
             watch.Elapsed.TotalSeconds.Should().BeGreaterOrEqualTo(multipleOfWaitTime);
@@ -104,7 +104,7 @@ namespace James.Testing.UnitTests.ActionExtensions
                 throw new ArgumentException();
             };
 
-            Action outerAction = () => action.Execute(times);
+            Action outerAction = () => action.ExecuteWithRetries(times);
 
             outerAction.ShouldThrow<ArgumentException>();
         }
@@ -122,7 +122,7 @@ namespace James.Testing.UnitTests.ActionExtensions
                     throw new Exception();
             };
 
-            action.Execute(times);
+            action.ExecuteWithRetries(times);
 
             counter.Should().Be(2);
         }

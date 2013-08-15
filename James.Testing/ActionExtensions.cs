@@ -6,7 +6,7 @@ namespace James.Testing
 {
     public static class ActionExtensions
     {
-        public static void Execute(this Action action, int retryTimes = 1, int waitTimeInSeconds = 0)
+        public static void ExecuteWithRetries(this Action action, int retryTimes = 1, int waitTimeInSeconds = 0)
         {
             do
             {
