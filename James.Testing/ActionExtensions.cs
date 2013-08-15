@@ -2,7 +2,7 @@
 using System.Diagnostics;
 using System.Threading;
 
-namespace James.Testing
+namespace System
 {
     public static class ActionExtensions
     {

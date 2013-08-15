@@ -7,6 +7,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "James.Testing.UnitTests", "
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{098207C4-7F28-4518-B2ED-13BCEA58FF83}"
 	ProjectSection(SolutionItems) = preProject
+		.nuget\DeployToNuGet.bat = .nuget\DeployToNuGet.bat
 		.nuget\NuGet.Config = .nuget\NuGet.Config
 		.nuget\NuGet.exe = .nuget\NuGet.exe
 		.nuget\NuGet.targets = .nuget\NuGet.targets

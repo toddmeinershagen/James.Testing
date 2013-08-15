@@ -1,0 +1,17 @@
+﻿<?xml version="1.0"?>
+<package >
+  <metadata>
+    <id>$id$</id>
+    <version>$version$</version>
+    <title>$title$</title>
+    <authors>$author$</authors>
+    <owners>$author$</owners>
+    <licenseUrl>https://github.com/toddmeinershagen/James.Testing/LICENSE</licenseUrl>
+    <projectUrl>https://github.com/toddmeinershagen/James.Testing</projectUrl>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>$description$</description>
+    <releaseNotes>Initial release including the Action extensions for retries and timeout periods.</releaseNotes>
+    <copyright>Copyright 2013</copyright>
+    <tags>test .net dotnet testing integration action actions nondeterministic</tags>
+  </metadata>
+</package>
