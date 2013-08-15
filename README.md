@@ -3,8 +3,8 @@ James.Testing
 
 James.Testing is a library of test utilities.  It is named after the author who wrote the book of James in the Bible.  
 
-"Dear brothers and sisters, when troubles come your way, consider it an opportunity for great joy. For you know that when your faith is tested, your endurance has a chance to grow."
-(James 1:2-3)
+>"Dear brothers and sisters, when troubles come your way, consider it an opportunity for great joy. For you know that when your faith is tested, your endurance has a chance to grow."
+>**(James 1:2-3)**
 
 Below is a description of the supported features.
 
@@ -16,9 +16,9 @@ Many times in integration tests, there is a non-deterministic time period betwee
 
 Example:
 
-var counter = 0;
-Action action = () => counter++;
-action.ExecuteWithRetries(times, waitTimeInSeconds);
+	var counter = 0;
+	Action action = () => counter++;
+	action.ExecuteWithRetries(times, waitTimeInSeconds);
 
 
 2.  Executing an Action with a Timeout Period
@@ -27,6 +27,6 @@ In other cases, you might want to execute a given action for a given time period
 
 Example:
 
-var counter = 0;
-Action action = () => counter++;
-action.ExecuteWithTimeout(timeoutInSeconds, waitTimeInSeconds);
+	var counter = 0;
+	Action action = () => counter++;
+	action.ExecuteWithTimeout(timeoutInSeconds, waitTimeInSeconds);
