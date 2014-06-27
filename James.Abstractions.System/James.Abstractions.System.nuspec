@@ -10,8 +10,8 @@
     <projectUrl>https://github.com/toddmeinershagen/James.Testing</projectUrl>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <description>$description$</description>
-    <releaseNotes>Initial release including the Action extensions for retries and timeout periods.</releaseNotes>
-    <copyright>Copyright 2013</copyright>
-    <tags>test .net dotnet testing integration action actions nondeterministic</tags>
+    <releaseNotes>Initial release includes .</releaseNotes>
+    <copyright>Copyright  2013</copyright>
+    <tags>test .net dotnet testing abstraction abstractions time</tags>
   </metadata>
 </package>
