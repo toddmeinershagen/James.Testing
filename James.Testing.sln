@@ -19,6 +19,10 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		README.md = README.md
 	EndProjectSection
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "James.Abstractions.System", "James.Abstractions.System\James.Abstractions.System.csproj", "{950B98A9-F254-4BD8-AE67-95F7A2050850}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "James.Abstractions.System.IntegrationTests", "James.Abstractions.System.IntegrationTests\James.Abstractions.System.IntegrationTests.csproj", "{835C170D-B6D5-4953-9C2B-E0E4ED7232DF}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -33,6 +37,14 @@ Global
 		{18917A4C-3D98-4312-BE82-3C5F851EAAC2}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{18917A4C-3D98-4312-BE82-3C5F851EAAC2}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{18917A4C-3D98-4312-BE82-3C5F851EAAC2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{950B98A9-F254-4BD8-AE67-95F7A2050850}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{950B98A9-F254-4BD8-AE67-95F7A2050850}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{950B98A9-F254-4BD8-AE67-95F7A2050850}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{950B98A9-F254-4BD8-AE67-95F7A2050850}.Release|Any CPU.Build.0 = Release|Any CPU
+		{835C170D-B6D5-4953-9C2B-E0E4ED7232DF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{835C170D-B6D5-4953-9C2B-E0E4ED7232DF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{835C170D-B6D5-4953-9C2B-E0E4ED7232DF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{835C170D-B6D5-4953-9C2B-E0E4ED7232DF}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
