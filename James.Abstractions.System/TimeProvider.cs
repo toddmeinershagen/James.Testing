@@ -44,7 +44,7 @@ namespace James.Abstractions.System
     /// <summary>
     /// Local default for the TimeProvider ambient context dependency.
     /// </summary>
-    public class DefaultTimeProvider : TimeProvider
+    internal class DefaultTimeProvider : TimeProvider
     {
         public override DateTime NowAsDateTime
         {
