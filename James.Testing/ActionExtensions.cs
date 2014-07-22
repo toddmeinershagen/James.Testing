@@ -48,5 +48,15 @@ namespace System
                 }
             } while (watch.Elapsed.TotalSeconds < timeoutInSeconds);
         }
+
+        public static void GulpException(this Action action)
+        {
+            try
+            {
+                action();
+            }
+            catch
+            {}
+        }
     }
 }

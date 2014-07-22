@@ -6,6 +6,26 @@ using NUnit.Framework;
 namespace James.Testing.UnitTests.ActionExtensions
 {
     [TestFixture]
+    public class when_gulping_exception
+    {
+        [Test]
+        public void given_action_fails_should_not_throw_exception()
+        {
+            Action action = () => { throw new Exception(); };
+            Action subject = action.GulpException;
+            subject.ShouldNotThrow();
+        }
+
+        [Test]
+        public void given_action_succeeds_should_not_throw_exception()
+        {
+            Action action = () => { };
+            Action subject = action.GulpException;
+            subject.ShouldNotThrow();
+        }
+    }
+
+    [TestFixture]
     public class when_executing_with_retries : BaseTest
     {
         [Test]
