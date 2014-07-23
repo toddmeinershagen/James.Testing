@@ -109,7 +109,7 @@ namespace James.Testing.UnitTests.ActionExtensions
             Gulp(() => action.ExecuteWithRetries(times, waitTimeInSeconds));
             watch.Stop();
 
-            watch.Elapsed.TotalSeconds.Should().BeGreaterOrEqualTo(multipleOfWaitTime);
+            watch.Elapsed.TotalSeconds.Should().BeApproximately(multipleOfWaitTime, 2);
         }
 
         [Test]
