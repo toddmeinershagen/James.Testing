@@ -4,17 +4,23 @@ namespace James.Testing.Rest
 {
     public static class Verification
     {
-        public static T Verify<T>(this T obj, string verification, Predicate<T> predicate)
+        public static T Verify<T>(this T value, string verification, Predicate<T> predicate)
         {
-            if (!predicate(obj))
+            if (!predicate(value))
                 throw new VerificationException(string.Format("Unable to verify {0}", verification));
 
-            return obj;
+            return value;
         }
 
-        public static T Verify<T>(this T obj, Predicate<T> predicate)
+        public static T Verify<T>(this T value, Predicate<T> predicate)
         {
-            return obj.Verify("custom verification", predicate);
+            return value.Verify("custom verification", predicate);
+        }
+
+        public static T Store<T, TData>(this T value, out TData data, Func<T, TData> expression)
+        {
+            data = expression(value);
+            return value;
         }
     }
 }
