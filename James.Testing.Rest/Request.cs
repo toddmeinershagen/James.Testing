@@ -12,7 +12,7 @@ namespace James.Testing.Rest
             var uri = new Uri(uriString);
             using (var client = GetClient(uri))
             {
-                var responseTask = client.GetAsync(string.Format(uri.PathAndQuery));
+                var responseTask = client.GetAsync(uri.PathAndQuery);
                 var response = responseTask.Result;
 
                 return new Response<TResponse>(response.Content.ReadAsAsync<TResponse>().Result, response.StatusCode, response.Headers);
@@ -24,7 +24,7 @@ namespace James.Testing.Rest
             var uri = new Uri(uriString);
             using (var client = GetClient(uri))
             {
-                var responseTask = client.GetAsync(string.Format(uri.PathAndQuery));
+                var responseTask = client.GetAsync(uri.PathAndQuery);
                 var response = responseTask.Result;
 
                 return new Response<byte[]>(response.Content.ReadAsByteArrayAsync().Result, response.StatusCode, response.Headers);
@@ -36,10 +36,22 @@ namespace James.Testing.Rest
             var uri = new Uri(uriString);
             using (var client = GetClient(uri))
             {
-                var responseTask = client.PostAsync(string.Format(uri.PathAndQuery), request, new JsonMediaTypeFormatter());
+                var responseTask = client.PostAsync(uri.PathAndQuery, request, new JsonMediaTypeFormatter());
                 var response = responseTask.Result;
 
                 return new Response<TResponse>(response.Content.ReadAsAsync<TResponse>().Result, response.StatusCode, response.Headers);
+            }
+        }
+
+        public static IResponse<string> Delete(string uriString)
+        {
+            var uri = new Uri(uriString);
+            using (var client = GetClient(uri))
+            {
+                var responseTask = client.DeleteAsync(uri.PathAndQuery);
+                var response = responseTask.Result;
+
+                return new Response<string>(string.Empty, response.StatusCode, response.Headers);
             }
         }
 

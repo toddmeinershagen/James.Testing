@@ -61,6 +61,7 @@
   <ItemGroup>
     <Compile Include="ByteArrayResponse.cs" />
     <Compile Include="DebuggingTests.cs" />
+    <Compile Include="DeleteTests.cs" />
     <Compile Include="GetTests.cs" />
     <Compile Include="Host.cs" />
     <Compile Include="HostTestFixture.cs" />
