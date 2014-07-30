@@ -1,19 +1,43 @@
-﻿using System.Net;
+﻿using System;
+using System.Net;
+using System.Net.Http;
 using System.Net.Http.Headers;
 
 namespace James.Testing.Rest
 {
-    internal class Response<TResponse> : IResponse<TResponse>
+    internal class Response<TResponse, TError> : IResponse<TResponse, TError>
     {
-        public Response(TResponse body, HttpStatusCode statusCode, HttpResponseHeaders headers)
-        {
-            Body = body;
-            StatusCode = statusCode;
-            Headers = headers;
-        }
-
         public TResponse Body { get; private set; }
         public HttpStatusCode StatusCode { get; private set; }
         public HttpResponseHeaders Headers { get; private set; }
+        public TError Error { get; set; }
+
+        public Response(HttpResponseMessage response, Func<HttpResponseMessage, TResponse> getContent)
+        {
+            StatusCode = response.StatusCode;
+            Headers = response.Headers;
+
+            if (response.IsSuccessStatusCode)
+            {
+                Body = getContent(response);
+                Error = default(TError);
+            }
+            else
+            {
+                Body = default(TResponse);
+
+                if (typeof (TError) == typeof (string))
+                {
+                    var result = response.Content.ReadAsStringAsync().Result;
+                    Error = (TError) (result as object);
+                }
+                else
+                {
+                    Error = response.Content.ReadAsAsync<TError>().Result;
+                }
+            }
+        }
     }
+
+        
 }
