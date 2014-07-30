@@ -1,11 +1,11 @@
 ﻿using System;
+using James.Testing.Rest.IntegrationTests.Models;
 using Nancy;
 using Nancy.ModelBinding;
 using NUnit.Framework;
 using HttpStatusCode = System.Net.HttpStatusCode;
-using Request = James.Testing.Rest.Request;
 
-namespace James.Testing.Rest.IntegrationTests
+namespace James.Testing.Rest.IntegrationTests.RequestTests
 {
     [TestFixture]
     public class given_resource_when_posting : HostTestFixture

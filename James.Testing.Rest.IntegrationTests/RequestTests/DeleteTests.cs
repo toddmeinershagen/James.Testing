@@ -3,7 +3,7 @@ using Nancy;
 using NUnit.Framework;
 using HttpStatusCode = System.Net.HttpStatusCode;
 
-namespace James.Testing.Rest.IntegrationTests
+namespace James.Testing.Rest.IntegrationTests.RequestTests
 {
     [TestFixture]
     public class given_resource_when_deleting : HostTestFixture

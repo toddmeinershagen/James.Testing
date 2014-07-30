@@ -1,5 +1,6 @@
 ﻿using System;
 using FluentAssertions;
+using James.Testing.Rest.IntegrationTests.Models;
 using NUnit.Framework;
 
 namespace James.Testing.Rest.IntegrationTests

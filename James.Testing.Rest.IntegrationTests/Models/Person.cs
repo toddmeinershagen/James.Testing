@@ -1,6 +1,6 @@
 using System;
 
-namespace James.Testing.Rest.IntegrationTests
+namespace James.Testing.Rest.IntegrationTests.Models
 {
     public class Person
     {
