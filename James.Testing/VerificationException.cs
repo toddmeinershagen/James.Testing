@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace James.Testing.Rest
+namespace James.Testing
 {
     public class VerificationException : Exception
     {

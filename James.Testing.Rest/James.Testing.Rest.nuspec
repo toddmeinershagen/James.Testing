@@ -13,5 +13,8 @@
     <releaseNotes>Initial release includes .</releaseNotes>
     <copyright>Copyright  2013</copyright>
     <tags>test .net dotnet testing rest</tags>
+    <dependencies>
+      <dependency id="James.Testing" version="1.0.2.0"></dependency>
+    </dependencies>
   </metadata>
 </package>

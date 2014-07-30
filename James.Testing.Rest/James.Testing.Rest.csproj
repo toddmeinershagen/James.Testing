@@ -55,11 +55,16 @@
     <Compile Include="Request.cs" />
     <Compile Include="Response.cs" />
     <Compile Include="Verification.cs" />
-    <Compile Include="VerificationException.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="James.Testing.Rest.nuspec" />
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\James.Testing\James.Testing.csproj">
+      <Project>{fb9e3dbb-0f82-41f5-82f8-39215d8756f7}</Project>
+      <Name>James.Testing</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="$(SolutionDir)\.nuget\NuGet.targets" Condition="Exists('$(SolutionDir)\.nuget\NuGet.targets')" />

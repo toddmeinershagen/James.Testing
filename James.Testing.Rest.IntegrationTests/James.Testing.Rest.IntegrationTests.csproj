@@ -84,6 +84,10 @@
       <Project>{aad90c1b-bbbb-440a-8ce2-4820df16bf0e}</Project>
       <Name>James.Testing.Rest</Name>
     </ProjectReference>
+    <ProjectReference Include="..\James.Testing\James.Testing.csproj">
+      <Project>{fb9e3dbb-0f82-41f5-82f8-39215d8756f7}</Project>
+      <Name>James.Testing</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="$(SolutionDir)\.nuget\NuGet.targets" Condition="Exists('$(SolutionDir)\.nuget\NuGet.targets')" />
