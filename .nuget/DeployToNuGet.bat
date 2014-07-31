@@ -8,5 +8,6 @@ nuget.exe setApiKey %NuGetApiKey%
 nuget.exe pack ..\James.Testing\James.Testing.csproj
 # nuget.exe pack ..\James.Abstractions.System\James.Abstractions.System.csproj
 nuget.exe pack ..\James.Testing.Rest\James.Testing.Rest.csproj
+nuget.exe pack ..\James.Testing.Wcf\James.Testing.Wcf.csproj
 
 nuget.exe push *.nupkg

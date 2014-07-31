@@ -2,10 +2,9 @@
 using System.IO;
 using System.Text;
 using FluentAssertions;
-using James.Testing.Rest.IntegrationTests.Models;
 using NUnit.Framework;
 
-namespace James.Testing.Rest.IntegrationTests
+namespace James.Testing.UnitTests
 {
     [TestFixture]
     public class DebuggingTests
@@ -39,7 +38,7 @@ namespace James.Testing.Rest.IntegrationTests
                 result.Should().Be(value);
             }
 
-            builder.ToString().Should().Be("James.Testing.Rest.IntegrationTests.Models.Person\r\n");
+            builder.ToString().Should().Be("James.Testing.UnitTests.Person\r\n");
         }
 
         [Test]

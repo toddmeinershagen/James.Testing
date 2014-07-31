@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Diagnostics;
 
-namespace James.Testing.Rest
+namespace James.Testing
 {
     public static class Debugging
     {
