@@ -11,4 +11,5 @@ The current set of libraries is as follows:  (click on each link to learn more)
 
 * [James.Testing](https://github.com/toddmeinershagen/James.Testing/wiki/James.Testing) - general purpose action extensions to aid in testing.
 * [James.Testing.Rest](https://github.com/toddmeinershagen/James.Testing/wiki/James.Testing.Rest) - a dead simple client for rest-based services.
+* [James.Testing.Wcf](https://github.com/toddmeinershagen/James.Testing/wiki/James.Testing.Wcf) - a dead simple client for soap-based services.
 * [James.Abstractions.System](https://github.com/toddmeinershagen/James.Testing/wiki/James.Abstractions.System) - abstractions for the System namespace for easy mocking.

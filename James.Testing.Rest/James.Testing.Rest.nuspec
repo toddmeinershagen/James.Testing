@@ -14,7 +14,7 @@
     <copyright>Copyright  2014</copyright>
     <tags>test .net dotnet testing rest</tags>
     <dependencies>
-      <dependency id="James.Testing" version="1.0.3.0"></dependency>
+      <dependency id="James.Testing" version="1.0.4.0"></dependency>
     </dependencies>
   </metadata>
 </package>
