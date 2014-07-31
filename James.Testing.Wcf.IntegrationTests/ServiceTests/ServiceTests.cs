@@ -18,5 +18,50 @@ namespace James.Testing.Wcf.IntegrationTests.ServiceTests
 
             Parallel.Invoke(action);
         }
+
+        [Test]
+        public void given_service_calls_in_multiple_threads_when_calling_should_return_thread_appropriate_responses()
+        {
+            Action action1 = () =>
+            Service<IPersonService>
+                .Call(x => x.GetPerson(new GetPersonRequest{Id = Guid.NewGuid()}))
+                .Verify(r => r.Result.Person.FirstName == "Todd");
+
+            Action action2 = () =>
+                Service<IPersonService>
+                    .Call(x => x.MarkPersonAsFavorite(Guid.NewGuid()))
+                    .Verify(r => r.Result == Result.Empty)
+                    .Verify(r => r.Fault == null);
+
+            Parallel.Invoke(action1, action2);
+        }
+
+        [Test]
+        public void
+            given_service_calls_in_multiple_threads_getting_current_response_should_return_thread_appropriate_responses()
+        {
+            Action action1 = () =>
+            {
+                Service<IPersonService>
+                    .Call(x => x.GetPerson(new GetPersonRequest {Id = Guid.NewGuid()}));
+
+                Service<IPersonService>
+                    .CurrentResponse<GetPersonResult>()
+                    .Verify(r => r.Result.Person.FirstName == "Todd");
+            };
+
+            Action action2 = () =>
+            {
+                Service<IPersonService>
+                    .Call(x => x.MarkPersonAsFavorite(Guid.NewGuid()));
+
+                Service<IPersonService>
+                    .CurrentResponse<Result>()
+                    .Verify(r => r.Result == Result.Empty)
+                    .Verify(r => r.Fault == null);
+            };
+
+            Parallel.Invoke(action1, action2);
+        }
     }
 }
