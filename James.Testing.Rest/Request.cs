@@ -102,5 +102,10 @@ namespace James.Testing.Rest
         {
             return CurrentResponse<TResponse, string>();
         }
+
+        public static IResponse<string, string> CurrentResponse()
+        {
+            return CurrentResponse<string, string>();
+        }
     }
 }
