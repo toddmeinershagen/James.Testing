@@ -49,7 +49,15 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BaseRequest.cs" />
+    <Compile Include="DeleteRequest.cs" />
+    <Compile Include="GetAsBytesRequest.cs" />
+    <Compile Include="GetAsDynamicRequest.cs" />
+    <Compile Include="GetRequest.cs" />
+    <Compile Include="IRequest.cs" />
     <Compile Include="IResponse.cs" />
+    <Compile Include="ObjectExtensions.cs" />
+    <Compile Include="PostRequest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Request.cs" />
     <Compile Include="Response.cs" />
