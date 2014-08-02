@@ -5,8 +5,8 @@ namespace James.Testing.Rest
 {
     internal class GetAsBytes<TError> : RequestBase<byte[], TError>
     {
-        public GetAsBytes(string uriString, object headers) 
-            : base(uriString, headers)
+        public GetAsBytes(string uriString, object headers, object query) 
+            : base(uriString, headers, query)
         {}
 
         protected override IResponse<byte[], TError> GetResponse(Uri uri, HttpClient client)

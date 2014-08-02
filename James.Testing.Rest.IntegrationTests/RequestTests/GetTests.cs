@@ -40,7 +40,7 @@ namespace James.Testing.Rest.IntegrationTests.RequestTests
         {
             Request
                 .Get<Dictionary<string, string>>(GetUriString(GetModule.HeadersResource),
-                    new {Id = "1;1", Test = "verify", x_medassets_auth = "test"})
+                new {Id = "1;1", Test = "verify", x_medassets_auth = "test"})
                 .VerifyThat(r => r.StatusCode).Is(HttpStatusCode.OK)
                 .Verify(r => r.Body["id"] == "1;1")
                 .Verify(r => r.Body["test"] == "verify")
@@ -48,6 +48,17 @@ namespace James.Testing.Rest.IntegrationTests.RequestTests
                 .Verify(r => r.Headers.GetValues("id").First() == "1;1")
                 .Verify(r => r.Headers.GetValues("test").First() == "verify")
                 .Verify(r => r.Headers.GetValues("x-medassets-auth").First() == "test");
+        }
+
+        [Test]
+        public void given_uri_for_existing_resource_with_query_when_getting_should_return_resource_properly()
+        {
+            Request
+                .Get<Person>(GetUriString(GetModule.QueryResource), null,
+                    new {FirstName = "Todd", LastName = "Meinershagen"})
+                .VerifyThat(r => r.StatusCode).Is(HttpStatusCode.OK)
+                .Verify(r => r.Body.FirstName == "Todd")
+                .Verify(r => r.Body.LastName == "Meinershagen");
         }
 
         [Test]
@@ -83,7 +94,6 @@ namespace James.Testing.Rest.IntegrationTests.RequestTests
                 .Verify(r => r.Headers.GetValues("firstName").First() == "Tammy")
                 .Verify(r => r.Headers.GetValues("lastName").First() == "Bennett");
         }
-
     }
 
     [TestFixture]
@@ -127,6 +137,7 @@ namespace James.Testing.Rest.IntegrationTests.RequestTests
         public const string DocumentsResource = "Documents";
         public const string HeadersResource = "Headers";
         public const string DynamicResource = "Dynamic";
+        public const string QueryResource = "Query";
 
         private readonly Person[] _people = new[]
         {
@@ -150,6 +161,13 @@ namespace James.Testing.Rest.IntegrationTests.RequestTests
                 return Negotiate
                     .WithModel(headers)
                     .WithHeaders(headers.Select(h => new {Header = h.Key, h.Value}).ToArray());
+            };
+
+            Get[QueryResource] = _ =>
+            {
+                var query = Request.Query;
+                return Negotiate
+                    .WithModel(new Person{FirstName = query.FirstName, LastName = query.LastName});
             };
 
             Get[DocumentsResource + "/{Id}"] = _ =>

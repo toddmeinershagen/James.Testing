@@ -4,9 +4,14 @@ namespace James.Testing.Rest
 {
     public class Request
     {
+        public static IResponse<TResponse, string> Get<TResponse>(string uriString, object headers, object query)
+        {
+            return Execute(new Get<TResponse, string>(uriString, headers, query));
+        }
+
         public static IResponse<TResponse, string> Get<TResponse>(string uriString, object headers)
         {
-            return Execute(new Get<TResponse, string>(uriString, headers));
+            return Get<TResponse>(uriString, headers, null);
         }
 
         public static IResponse<TResponse, string> Get<TResponse>(string uriString)
@@ -16,7 +21,12 @@ namespace James.Testing.Rest
 
         public static IResponse<dynamic, string> GetAsDynamic(string uriString, object headers)
         {
-            return Execute(new GetAsDynamic<string>(uriString, headers));
+            return GetAsDynamic(uriString, headers, null);
+        }
+
+        public static IResponse<dynamic, string> GetAsDynamic(string uriString, object headers, object query)
+        {
+            return Execute(new GetAsDynamic<string>(uriString, headers, query));
         }
 
         public static IResponse<dynamic, string> GetAsDynamic(string uriString)
@@ -24,9 +34,19 @@ namespace James.Testing.Rest
             return GetAsDynamic(uriString, null);
         }
 
+        public static IResponse<byte[], string> GetAsBytes(string uriString, object headers, object query)
+        {
+            return Execute(new GetAsBytes<string>(uriString, headers, query));
+        }
+
         public static IResponse<byte[], string> GetAsBytes(string uriString)
         {
-            return Execute(new GetAsBytes<string>(uriString, null));
+            return GetAsBytes(uriString, null, null);
+        }
+
+        public static IResponse<byte[], string> GetAsBytes(string uriString, object headers)
+        {
+            return GetAsBytes(uriString, headers, null);
         }
 
         public static IResponse<TResponse, TError> Post<TRequest, TResponse, TError>(string uriString, TRequest request)

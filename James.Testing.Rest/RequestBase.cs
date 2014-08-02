@@ -1,7 +1,6 @@
 using System;
 using System.Net.Http;
 using System.Net.Http.Headers;
-using System.Reflection;
 
 namespace James.Testing.Rest
 {
@@ -9,11 +8,17 @@ namespace James.Testing.Rest
     {
         private readonly string _uriString;
         private readonly object _headers;
+        private readonly object _query;
 
         protected RequestBase(string uriString, object headers)
+            : this(uriString, headers, null)
+        {}
+
+        protected RequestBase(string uriString, object headers, object query)
         {
             _uriString = uriString;
             _headers = headers;
+            _query = query;
         }
 
         public IResponse<TResponse, TError> Execute()
@@ -21,8 +26,8 @@ namespace James.Testing.Rest
             var uri = new Uri(_uriString);
             using (var client = GetClient(uri))
             {
-                AddHeaders(_headers, client);
-                return GetResponse(uri, client);
+                client.AddHeaders(_headers);
+                return GetResponse(uri.With(_query), client);
             }
         }
 
@@ -36,17 +41,6 @@ namespace James.Testing.Rest
             client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
 
             return client;
-        }
-
-        private void AddHeaders(object headers, HttpClient client)
-        {
-            if (headers == null) return;
-
-            foreach (var property in headers.GetType().GetProperties(BindingFlags.Instance | BindingFlags.Public))
-            {
-                client.DefaultRequestHeaders.Add(property.Name.Replace("_", "-"),
-                    property.GetValue(headers, null).ToString());
-            }
         }
 
         protected abstract IResponse<TResponse, TError> GetResponse(Uri uri, HttpClient client);

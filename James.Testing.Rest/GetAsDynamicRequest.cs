@@ -5,8 +5,8 @@ namespace James.Testing.Rest
 {
     internal class GetAsDynamic<TError> : RequestBase<object, TError>
     {
-        public GetAsDynamic(string uriString, object headers)
-            : base(uriString, headers)
+        public GetAsDynamic(string uriString, object headers, object query)
+            : base(uriString, headers, query)
         {}
 
         protected override IResponse<object, TError> GetResponse(Uri uri, HttpClient client)
