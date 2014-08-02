@@ -10,7 +10,7 @@ namespace James.Testing.Rest
         public TResponse Body { get; private set; }
         public HttpStatusCode StatusCode { get; private set; }
         public HttpResponseHeaders Headers { get; private set; }
-        public TError Error { get; set; }
+        public TError Error { get; private set; }
 
         public Response(HttpResponseMessage response, Func<HttpResponseMessage, TResponse> getContent)
         {

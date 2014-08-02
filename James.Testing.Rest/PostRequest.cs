@@ -4,11 +4,11 @@ using System.Net.Http.Formatting;
 
 namespace James.Testing.Rest
 {
-    internal class PostRequest<TRequest, TResponse, TError> : BaseRequest<TResponse, TError>
+    internal class Post<TRequest, TResponse, TError> : RequestBase<TResponse, TError>
     {
         private readonly TRequest _request;
 
-        public PostRequest(string uriString, TRequest request, object headers)
+        public Post(string uriString, TRequest request, object headers)
             : base(uriString, headers)
         {
             _request = request;

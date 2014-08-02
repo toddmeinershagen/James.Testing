@@ -3,9 +3,9 @@ using System.Net.Http;
 
 namespace James.Testing.Rest
 {
-    internal class GetAsBytesRequest<TError> : BaseRequest<byte[], TError>
+    internal class GetAsBytes<TError> : RequestBase<byte[], TError>
     {
-        public GetAsBytesRequest(string uriString, object headers) 
+        public GetAsBytes(string uriString, object headers) 
             : base(uriString, headers)
         {}
 

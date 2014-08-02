@@ -49,7 +49,7 @@ namespace James.Testing.Rest.IntegrationTests.RequestTests
         [Test]
         public void given_uri_for_existing_resource_when_getting_as_dynamic_should_return_resource()
         {
-        Request
+            Request
                 .GetAsDynamic(GetUriString(GetModule.DynamicResource))
                 .Verify(x => x.Body.firstName == "Todd")
                 .Verify(x => x.Body.lastName == "Meinershagen");

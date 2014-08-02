@@ -3,9 +3,9 @@ using System.Net.Http;
 
 namespace James.Testing.Rest
 {
-    internal class GetRequest<TResponse, TError> : BaseRequest<TResponse, TError>
+    internal class Get<TResponse, TError> : RequestBase<TResponse, TError>
     {
-        public GetRequest(string uriString, object headers)
+        public Get(string uriString, object headers)
             : base(uriString, headers)
         {}
 

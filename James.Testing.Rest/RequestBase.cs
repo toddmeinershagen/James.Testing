@@ -5,12 +5,12 @@ using System.Reflection;
 
 namespace James.Testing.Rest
 {
-    internal abstract class BaseRequest<TResponse, TError> : IRequest<TResponse, TError>
+    internal abstract class RequestBase<TResponse, TError> : IRequest<TResponse, TError>
     {
         private readonly string _uriString;
         private readonly object _headers;
 
-        protected BaseRequest(string uriString, object headers)
+        protected RequestBase(string uriString, object headers)
         {
             _uriString = uriString;
             _headers = headers;

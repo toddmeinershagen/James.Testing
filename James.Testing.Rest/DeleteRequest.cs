@@ -3,9 +3,9 @@ using System.Net.Http;
 
 namespace James.Testing.Rest
 {
-    internal class DeleteRequest<TError> : BaseRequest<string, TError>
+    internal class Delete<TError> : RequestBase<string, TError>
     {
-        public DeleteRequest(string uriString)
+        public Delete(string uriString)
             : base(uriString, null)
         {}
 
