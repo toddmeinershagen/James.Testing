@@ -36,14 +36,18 @@ namespace James.Testing.Rest.IntegrationTests.RequestTests
         }
 
         [Test]
-        public void given_uri_for_existing_resource_with_headers_when_getting_should_return_resource()
+        public void given_uri_for_existing_resource_with_headers_when_getting_should_return_resource_properly()
         {
             Request
                 .Get<Dictionary<string, string>>(GetUriString(GetModule.HeadersResource),
                     new {Id = "1;1", Test = "verify", x_medassets_auth = "test"})
-                .Verify(x => x.Body["id"] == "1;1")
-                .Verify(x => x.Body["test"] == "verify")
-                .Verify(x => x.Body["x-medassets-auth"] == "test");
+                .VerifyThat(r => r.StatusCode).Is(HttpStatusCode.OK)
+                .Verify(r => r.Body["id"] == "1;1")
+                .Verify(r => r.Body["test"] == "verify")
+                .Verify(r => r.Body["x-medassets-auth"] == "test")
+                .Verify(r => r.Headers.GetValues("id").First() == "1;1")
+                .Verify(r => r.Headers.GetValues("test").First() == "verify")
+                .Verify(r => r.Headers.GetValues("x-medassets-auth").First() == "test");
         }
 
         [Test]
@@ -54,10 +58,36 @@ namespace James.Testing.Rest.IntegrationTests.RequestTests
                 .Verify(x => x.Body.firstName == "Todd")
                 .Verify(x => x.Body.lastName == "Meinershagen");
         }
+
+        [Test]
+        public void given_uri_for_existing_resource_with_headers_when_getting_as_dynamic_should_return_resource()
+        {
+            Request
+                .GetAsDynamic(GetUriString(GetModule.HeadersResource),
+                    new {Id = "1", FirstName = "Tammy", LastName = "Bennett"})
+                .Verify(r => r.Body.id == "1")
+                .Verify(r => r.Body.firstName == "Tammy")
+                .Verify(r => r.Body.lastName == "Bennett")
+                .Verify(r => r.Headers.GetValues("id").First() == "1")
+                .Verify(r => r.Headers.GetValues("firstName").First() == "Tammy")
+                .Verify(r => r.Headers.GetValues("lastName").First() == "Bennett");
+        }
+
+        [Test]
+        public void given_uri_for_existing_resource_when_getting_as_bytes_should_return_resource()
+        {
+            Request
+                .GetAsDynamic(GetUriString(GetModule.HeadersResource),
+                    new { Id = "1", FirstName = "Tammy", LastName = "Bennett" })
+                .Verify(r => r.Headers.GetValues("id").First() == "1")
+                .Verify(r => r.Headers.GetValues("firstName").First() == "Tammy")
+                .Verify(r => r.Headers.GetValues("lastName").First() == "Bennett");
+        }
+
     }
 
     [TestFixture]
-    public class given_resource_when_getting_as_bytes : HostTestFixture
+    public class given_existing_resource_when_getting_as_bytes : HostTestFixture
     {
         [TestFixtureSetUp]
         public void SetUp()
@@ -116,8 +146,10 @@ namespace James.Testing.Rest.IntegrationTests.RequestTests
             Get[HeadersResource] = _ =>
             {
                 var headers = Request.Headers.ToDictionary(header => header.Key, header => header.Value.First());
+
                 return Negotiate
-                    .WithModel(headers);
+                    .WithModel(headers)
+                    .WithHeaders(headers.Select(h => new {Header = h.Key, h.Value}).ToArray());
             };
 
             Get[DocumentsResource + "/{Id}"] = _ =>
