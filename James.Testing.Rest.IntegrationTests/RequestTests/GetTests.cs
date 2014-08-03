@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Net;
 using James.Testing.Rest.IntegrationTests.Models;
 using Nancy;
 using NUnit.Framework;
@@ -67,7 +68,7 @@ namespace James.Testing.Rest.IntegrationTests.RequestTests
         {
             Request
                 .WithUri(GetUriString(GetModule.DynamicResource))
-                .GetAsDynamic()
+                .Get()
                 .Verify(x => x.Body.firstName == "Todd")
                 .Verify(x => x.Body.lastName == "Meinershagen");
         }
@@ -78,10 +79,22 @@ namespace James.Testing.Rest.IntegrationTests.RequestTests
             Request
                 .WithUri(GetUriString(GetModule.HeadersResource))
                 .WithHeaders(new {Id = "1", FirstName = "Tammy", LastName = "Bennett"})
-                .GetAsDynamic()
+                .Get()
                 .Verify(r => r.Body.id == "1")
                 .Verify(r => r.Body.firstName == "Tammy")
                 .Verify(r => r.Body.lastName == "Bennett");
+        }
+
+        [Test]
+        public void given_uri_for_non_existing_resource_when_getting_as_dynamic_should_return_with_not_found_status()
+        {
+            Request
+                .WithUri(GetUriString(GetModule.DynamicResource))
+                .WithQuery(new {Id = GetModule.BadRequestId})
+                .Get()
+                .Verify("Body == null", r => r.Body == null)
+                .Verify(r => r.Error.message == "This is the message.")
+                .VerifyThat(r => r.StatusCode).Is(HttpStatusCode.BadRequest);
         }
     }
 
@@ -128,6 +141,7 @@ namespace James.Testing.Rest.IntegrationTests.RequestTests
         public const string HeadersResource = "Headers";
         public const string DynamicResource = "Dynamic";
         public const string QueryResource = "Query";
+        public static Guid BadRequestId = Guid.NewGuid();
 
         private readonly Person[] _people = new[]
         {
@@ -141,8 +155,18 @@ namespace James.Testing.Rest.IntegrationTests.RequestTests
                 .WithModel(_people)
                 .WithStatusCode(Nancy.HttpStatusCode.OK);
 
-            Get[DynamicResource] = _ => Negotiate
-                .WithModel(new {FirstName = "Todd", LastName = "Meinershagen"});
+            Get[DynamicResource] = _ =>
+            {
+                if (Request.Query.Id == BadRequestId)
+                {
+                    return Negotiate
+                        .WithModel(new Error {Message = "This is the message."})
+                        .WithStatusCode(Nancy.HttpStatusCode.BadRequest);
+                }
+
+                return Negotiate
+                    .WithModel(new {FirstName = "Todd", LastName = "Meinershagen"});
+            };
 
             Get[HeadersResource] = _ =>
             {

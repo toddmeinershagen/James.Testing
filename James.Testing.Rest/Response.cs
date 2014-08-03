@@ -31,6 +31,11 @@ namespace James.Testing.Rest
                     var result = response.Content.ReadAsStringAsync().Result;
                     Error = (TError) (result as object);
                 }
+                else if (typeof (TError) == typeof (object))
+                {
+                    var result = response.Content.ReadAsAsync<object>().Result;
+                    Error = (TError) result;
+                }
                 else
                 {
                     Error = response.Content.ReadAsAsync<TError>().Result;

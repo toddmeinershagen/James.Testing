@@ -32,14 +32,14 @@ namespace James.Testing.Rest
             return this;
         }
 
+        public IResponse<dynamic, dynamic> Get()
+        {
+            return Execute(new GetAsDynamic<dynamic>(_uriString, _headers, _query));
+        }
+ 
         public IResponse<TResponse, string> Get<TResponse>()
         {
             return Execute(new GetRequest<TResponse, string>(_uriString, _headers, _query));
-        }
-
-        public IResponse<dynamic, string> GetAsDynamic()
-        {
-            return Execute(new GetAsDynamic<string>(_uriString, _headers, _query));
         }
 
         public IResponse<byte[], string> GetAsBytes()
