@@ -7,7 +7,7 @@ nuget.exe setApiKey %NuGetApiKey%
 
 REM nuget.exe pack ..\James.Testing\James.Testing.csproj
 REM nuget.exe pack ..\James.Abstractions.System\James.Abstractions.System.csproj
-REM nuget.exe pack ..\James.Testing.Rest\James.Testing.Rest.csproj
+nuget.exe pack ..\James.Testing.Rest\James.Testing.Rest.csproj
 REM nuget.exe pack ..\James.Testing.Wcf\James.Testing.Wcf.csproj
 
 nuget.exe push *.nupkg
