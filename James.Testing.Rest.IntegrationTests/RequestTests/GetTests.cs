@@ -86,7 +86,7 @@ namespace James.Testing.Rest.IntegrationTests.RequestTests
         }
 
         [Test]
-        public void given_uri_for_non_existing_resource_when_getting_as_dynamic_should_return_with_not_found_status()
+        public void given_uri_for_non_existing_resource_when_getting_as_dynamic_should_return_with_bad_request_status_with_dynamic_error_object()
         {
             Request
                 .WithUri(GetUriString(GetModule.DynamicResource))
@@ -94,6 +94,18 @@ namespace James.Testing.Rest.IntegrationTests.RequestTests
                 .Get()
                 .Verify("Body == null", r => r.Body == null)
                 .Verify(r => r.Error.message == "This is the message.")
+                .VerifyThat(r => r.StatusCode).Is(HttpStatusCode.BadRequest);
+        }
+
+        [Test]
+        public void given_uri_for_non_existing_resource_with_non_matching_response_media_type_when_getting_as_dynamic_should_return_with_bad_request_status_with_error_message()
+        {
+            Request
+                .WithUri(GetUriString(GetModule.DynamicResource))
+                .WithQuery(new { Id = GetModule.UnsupportedMediaExceptionId })
+                .Get()
+                .Verify("Body == null", r => r.Body == null)
+                .Verify(r => r.Error == "This is the error message.")
                 .VerifyThat(r => r.StatusCode).Is(HttpStatusCode.BadRequest);
         }
     }
@@ -142,6 +154,7 @@ namespace James.Testing.Rest.IntegrationTests.RequestTests
         public const string DynamicResource = "Dynamic";
         public const string QueryResource = "Query";
         public static Guid BadRequestId = Guid.NewGuid();
+        public static Guid UnsupportedMediaExceptionId = Guid.NewGuid();
 
         private readonly Person[] _people = new[]
         {
@@ -161,6 +174,13 @@ namespace James.Testing.Rest.IntegrationTests.RequestTests
                 {
                     return Negotiate
                         .WithModel(new Error {Message = "This is the message."})
+                        .WithStatusCode(Nancy.HttpStatusCode.BadRequest);
+                }
+
+                if (Request.Query.Id == UnsupportedMediaExceptionId)
+                {
+                    return Response
+                        .AsText("This is the error message.")
                         .WithStatusCode(Nancy.HttpStatusCode.BadRequest);
                 }
 

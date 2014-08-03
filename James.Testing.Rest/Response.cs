@@ -24,22 +24,35 @@ namespace James.Testing.Rest
             }
             else
             {
-                Body = default(TResponse);
+                HandleError(response);
+            }
+        }
 
-                if (typeof (TError) == typeof (string))
+        private void HandleError(HttpResponseMessage response)
+        {
+            Body = default(TResponse);
+
+            if (typeof (TError) == typeof (string))
+            {
+                var result = response.Content.ReadAsStringAsync().Result;
+                Error = (TError) (result as object);
+            }
+            else if (typeof (TError) == typeof (object))
+            {
+                try
+                {
+                    var result = response.Content.ReadAsAsync<object>().Result;
+                    Error = (TError)result;
+                }
+                catch (UnsupportedMediaTypeException ex)
                 {
                     var result = response.Content.ReadAsStringAsync().Result;
                     Error = (TError) (result as object);
                 }
-                else if (typeof (TError) == typeof (object))
-                {
-                    var result = response.Content.ReadAsAsync<object>().Result;
-                    Error = (TError) result;
-                }
-                else
-                {
-                    Error = response.Content.ReadAsAsync<TError>().Result;
-                }
+            }
+            else
+            {
+                Error = response.Content.ReadAsAsync<TError>().Result;
             }
         }
     }
