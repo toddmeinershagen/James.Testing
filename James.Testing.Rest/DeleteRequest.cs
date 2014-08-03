@@ -3,10 +3,10 @@ using System.Net.Http;
 
 namespace James.Testing.Rest
 {
-    internal class Delete<TError> : RequestBase<string, TError>
+    internal class DeleteRequest<TError> : RequestBase<string, TError>
     {
-        public Delete(string uriString)
-            : base(uriString, null)
+        public DeleteRequest(string uriString, object headers, object query)
+            : base(uriString, headers, query)
         {}
 
         protected override IResponse<string, TError> GetResponse(Uri uri, HttpClient client)

@@ -26,7 +26,8 @@ namespace James.Testing.Rest.IntegrationTests.RequestTests
             Action action = () =>
             {
                 Request
-                    .Get<IList<Person>>(GetUriString(GetModule.PeopleResource));
+                    .WithUri(GetUriString(GetModule.PeopleResource))
+                    .Get<IList<Person>>();
 
                 var response = Request.CurrentResponse<IList<Person>>();
                 response.Should().NotBeNull();
@@ -42,7 +43,8 @@ namespace James.Testing.Rest.IntegrationTests.RequestTests
             {
                 var person = new Person {FirstName = "Tammy", LastName = "Ellis"};
                 Request
-                    .Post<Person, Guid>(GetUriString(PostModule.Resource), person);
+                    .WithUri(GetUriString(PostModule.Resource))
+                    .Post<Person, Guid>(person);
 
                 Request
                     .CurrentResponse<Guid>()
@@ -52,7 +54,8 @@ namespace James.Testing.Rest.IntegrationTests.RequestTests
             Action action2 = () =>
             {
                 Request
-                    .Get<IList<Person>>(GetUriString(GetModule.PeopleResource));
+                    .WithUri(GetUriString(GetModule.PeopleResource))
+                    .Get<IList<Person>>();
                 
                 Request
                     .CurrentResponse<IList<Person>>()
@@ -68,7 +71,8 @@ namespace James.Testing.Rest.IntegrationTests.RequestTests
             Action action = () =>
             {
                 Request
-                    .Get<IList<Person>>(GetUriString(GetModule.PeopleResource));
+                    .WithUri(GetUriString(GetModule.PeopleResource))
+                    .Get<IList<Person>>();
 
                 Request
                     .CurrentResponse<Guid>()

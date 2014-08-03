@@ -4,19 +4,19 @@ using System.Net.Http.Formatting;
 
 namespace James.Testing.Rest
 {
-    internal class Post<TRequest, TResponse, TError> : RequestBase<TResponse, TError>
+    internal class PostRequest<TBody, TResponse, TError> : RequestBase<TResponse, TError>
     {
-        private readonly TRequest _request;
+        private readonly TBody _body;
 
-        public Post(string uriString, TRequest request, object headers)
-            : base(uriString, headers)
+        public PostRequest(string uriString, TBody body, object headers, object query)
+            : base(uriString, headers, query)
         {
-            _request = request;
+            _body = body;
         }
 
         protected override IResponse<TResponse, TError> GetResponse(Uri uri, HttpClient client)
         {
-            var response = client.PostAsync(uri.PathAndQuery, _request, new JsonMediaTypeFormatter()).Result;
+            var response = client.PostAsync(uri.PathAndQuery, _body, new JsonMediaTypeFormatter()).Result;
             return new Response<TResponse, TError>(response, r => r.Content.ReadAsAsync<TResponse>().Result);
         }
     }

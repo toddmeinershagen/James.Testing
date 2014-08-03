@@ -1,67 +1,65 @@
-﻿using System.Threading;
+﻿using System.Data.OleDb;
+using System.Globalization;
+using System.Threading;
 
 namespace James.Testing.Rest
 {
     public class Request
     {
-        public static IResponse<TResponse, string> Get<TResponse>(string uriString, object headers, object query)
+        private readonly string _uriString;
+        private object _headers;
+        private object _query;
+
+        private Request(string uriString)
         {
-            return Execute(new Get<TResponse, string>(uriString, headers, query));
+            _uriString = uriString;
         }
 
-        public static IResponse<TResponse, string> Get<TResponse>(string uriString, object headers)
+        public static Request WithUri(string uriString)
         {
-            return Get<TResponse>(uriString, headers, null);
+            return new Request(uriString);
         }
 
-        public static IResponse<TResponse, string> Get<TResponse>(string uriString)
+        public Request WithHeaders(object headers)
         {
-            return Get<TResponse>(uriString, null);
+            _headers = headers;
+            return this;
         }
 
-        public static IResponse<dynamic, string> GetAsDynamic(string uriString, object headers)
+        public Request WithQuery(object query)
         {
-            return GetAsDynamic(uriString, headers, null);
+            _query = query;
+            return this;
         }
 
-        public static IResponse<dynamic, string> GetAsDynamic(string uriString, object headers, object query)
+        public IResponse<TResponse, string> Get<TResponse>()
         {
-            return Execute(new GetAsDynamic<string>(uriString, headers, query));
+            return Execute(new GetRequest<TResponse, string>(_uriString, _headers, _query));
         }
 
-        public static IResponse<dynamic, string> GetAsDynamic(string uriString)
+        public IResponse<dynamic, string> GetAsDynamic()
         {
-            return GetAsDynamic(uriString, null);
+            return Execute(new GetAsDynamic<string>(_uriString, _headers, _query));
         }
 
-        public static IResponse<byte[], string> GetAsBytes(string uriString, object headers, object query)
+        public IResponse<byte[], string> GetAsBytes()
         {
-            return Execute(new GetAsBytes<string>(uriString, headers, query));
+            return Execute(new GetAsBytes<string>(_uriString, _headers, _query));
         }
 
-        public static IResponse<byte[], string> GetAsBytes(string uriString)
+        public IResponse<TResponse, TError> Post<TBody, TResponse, TError>(TBody body)
         {
-            return GetAsBytes(uriString, null, null);
+            return Execute(new PostRequest<TBody, TResponse, TError>(_uriString, body, _headers, _query));
         }
 
-        public static IResponse<byte[], string> GetAsBytes(string uriString, object headers)
+        public IResponse<TResponse, string> Post<TBody, TResponse>(TBody body)
         {
-            return GetAsBytes(uriString, headers, null);
+            return Post<TBody, TResponse, string>(body);
         }
 
-        public static IResponse<TResponse, TError> Post<TRequest, TResponse, TError>(string uriString, TRequest request)
+        public IResponse<string, string> Delete()
         {
-            return Execute(new Post<TRequest, TResponse, TError>(uriString, request, null));
-        }
-
-        public static IResponse<TResponse, string> Post<TRequest, TResponse>(string uriString, TRequest request)
-        {
-            return Post<TRequest, TResponse, string>(uriString, request);
-        }
-
-        public static IResponse<string, string> Delete(string uriString)
-        {
-            return Execute(new Delete<string>(uriString));
+            return Execute(new DeleteRequest<string>(_uriString, _headers, _query));
         }
 
         private static IResponse<TResponse, TError> Execute<TResponse, TError>(IRequest<TResponse, TError> request)
