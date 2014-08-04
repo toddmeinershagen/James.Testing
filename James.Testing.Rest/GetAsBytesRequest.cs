@@ -5,7 +5,7 @@ namespace James.Testing.Rest
 {
     internal class GetAsBytes<TError> : RequestBase<byte[], TError>
     {
-        public GetAsBytes(string uriString, object headers, object query) 
+        public GetAsBytes(string uriString, object headers, DynamicDictionary query) 
             : base(uriString, headers, query)
         {}
 

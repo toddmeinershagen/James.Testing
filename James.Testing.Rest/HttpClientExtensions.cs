@@ -37,16 +37,16 @@ namespace James.Testing.Rest
             client.BaseAddress = uriBuilder.Uri;
         }
 
-        internal static Uri With(this Uri uri, object query)
+        internal static Uri With(this Uri uri, DynamicDictionary query)
         {
             if (query == null) return uri;
             if (uri == null) return null;
 
             var uriBuilder = new UriBuilder(uri);
 
-            foreach (var property in query.GetType().GetProperties(BindingFlags.Instance | BindingFlags.Public))
+            foreach (var name in query.GetMemberNames())
             {
-                string queryToAppend = string.Format("{0}={1}", property.Name, property.GetValue(query, null));
+                string queryToAppend = string.Format("{0}={1}", name, query.Get(name));
 
                 if (uriBuilder.Query != null && uriBuilder.Query.Length > 1)
                     uriBuilder.Query = uriBuilder.Query.Substring(1) + "&" + queryToAppend;

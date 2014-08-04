@@ -8,13 +8,13 @@ namespace James.Testing.Rest
     {
         private readonly string _uriString;
         private readonly object _headers;
-        private readonly object _query;
+        private readonly DynamicDictionary _query;
 
         protected RequestBase(string uriString, object headers)
             : this(uriString, headers, null)
         {}
 
-        protected RequestBase(string uriString, object headers, object query)
+        protected RequestBase(string uriString, object headers, DynamicDictionary query)
         {
             _uriString = uriString;
             _headers = headers;

@@ -56,7 +56,8 @@ namespace James.Testing.Rest.IntegrationTests.RequestTests
         {
             Request
                 .WithUri(GetUriString(GetModule.QueryResource))
-                .WithQuery(new {FirstName = "Todd", LastName = "Meinershagen"})
+                .WithQueryValue("FirstName", "Todd")
+                .WithQueryValue("LastName", "Meinershagen")
                 .Get<Person>()
                 .VerifyThat(r => r.StatusCode).Is(HttpStatusCode.OK)
                 .Verify(r => r.Body.FirstName == "Todd")

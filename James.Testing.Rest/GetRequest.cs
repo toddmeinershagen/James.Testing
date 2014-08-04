@@ -5,7 +5,7 @@ namespace James.Testing.Rest
 {
     internal class GetRequest<TResponse, TError> : RequestBase<TResponse, TError>
     {
-        public GetRequest(string uriString, object headers, object query)
+        public GetRequest(string uriString, object headers, DynamicDictionary query)
             : base(uriString, headers, query)
         {}
 

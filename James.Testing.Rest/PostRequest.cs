@@ -8,7 +8,7 @@ namespace James.Testing.Rest
     {
         private readonly TBody _body;
 
-        public PostRequest(string uriString, TBody body, object headers, object query)
+        public PostRequest(string uriString, TBody body, object headers, DynamicDictionary query)
             : base(uriString, headers, query)
         {
             _body = body;

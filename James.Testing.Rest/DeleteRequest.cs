@@ -5,7 +5,7 @@ namespace James.Testing.Rest
 {
     internal class DeleteRequest<TError> : RequestBase<string, TError>
     {
-        public DeleteRequest(string uriString, object headers, object query)
+        public DeleteRequest(string uriString, object headers, DynamicDictionary query)
             : base(uriString, headers, query)
         {}
 
