@@ -1,5 +1,4 @@
-﻿using System.Data.OleDb;
-using System.Globalization;
+﻿using System.Dynamic;
 using System.Threading;
 
 namespace James.Testing.Rest
@@ -20,13 +19,13 @@ namespace James.Testing.Rest
             return new Request(uriString);
         }
 
-        public Request WithHeaders(object headers)
+        public Request WithHeaders(dynamic headers)
         {
             _headers = headers;
             return this;
         }
 
-        public Request WithQuery(object query)
+        public Request WithQuery(dynamic query)
         {
             _query = query;
             return this;
