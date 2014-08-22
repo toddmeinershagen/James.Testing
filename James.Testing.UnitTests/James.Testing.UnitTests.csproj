@@ -59,6 +59,7 @@
     <Compile Include="Person.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="VerificationTests.cs" />
+    <Compile Include="WaitTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\James.Testing\James.Testing.csproj">

@@ -45,6 +45,7 @@
     <Compile Include="Storage.cs" />
     <Compile Include="Verification.cs" />
     <Compile Include="VerificationException.cs" />
+    <Compile Include="Wait.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="James.Testing.nuspec">
