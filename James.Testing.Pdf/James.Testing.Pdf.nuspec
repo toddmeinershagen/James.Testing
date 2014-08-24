@@ -7,7 +7,7 @@
     <authors>$author$</authors>
     <owners>$author$</owners>
     <licenseUrl>https://github.com/toddmeinershagen/James.Testing/LICENSE</licenseUrl>
-    <projectUrl>https://github.com/toddmeinershagen/James.Testing</projectUrl>
+    <projectUrl>https://github.com/toddmeinershagen/James.Testing/wiki/James.Testing.Pdf</projectUrl>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <description>$description$</description>
     <releaseNotes>Initial release includes .</releaseNotes>
