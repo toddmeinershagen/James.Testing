@@ -19,6 +19,11 @@ namespace James.Testing
             Until(predicate, TimeSpan.FromSeconds(15));
         }
 
+        public static void Until(Func<bool> predicate, int timeoutInSeconds)
+        {
+            Until(predicate, TimeSpan.FromSeconds(timeoutInSeconds));
+        }
+
         public static void Until(Func<bool> predicate, TimeSpan timeout)
         {
             var watch = new Stopwatch();

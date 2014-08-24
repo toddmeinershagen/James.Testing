@@ -12,7 +12,8 @@ namespace James.Testing
             {
                 try
                 {
-                    Thread.Sleep(waitTimeInSeconds * 1001);
+                    //Thread.Sleep(waitTimeInSeconds * 1001);
+                    Wait.For(waitTimeInSeconds).Seconds();
                     action();
                     break;
                 }
@@ -33,7 +34,8 @@ namespace James.Testing
             {
                 try
                 {
-                    Thread.Sleep(waitTimeInSeconds * 1001);
+                    //Thread.Sleep(waitTimeInSeconds * 1001);
+                    Wait.For(waitTimeInSeconds).Seconds();
                     watch.Start();
                     action();
                     watch.Stop();

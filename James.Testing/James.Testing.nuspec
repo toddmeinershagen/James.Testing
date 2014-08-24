@@ -7,11 +7,11 @@
     <authors>$author$</authors>
     <owners>$author$</owners>
     <licenseUrl>https://github.com/toddmeinershagen/James.Testing/LICENSE</licenseUrl>
-    <projectUrl>https://github.com/toddmeinershagen/James.Testing</projectUrl>
+    <projectUrl>https://github.com/toddmeinershagen/James.Testing/wiki/James.Testing</projectUrl>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <description>$description$</description>
-    <releaseNotes>Initial release including the Action extensions for retries and timeout periods.</releaseNotes>
+    <releaseNotes>Added functionality to include waiting for a given time period and waiting until some state change.</releaseNotes>
     <copyright>Copyright 2013</copyright>
-    <tags>test .net dotnet testing integration action actions nondeterministic</tags>
+    <tags>test .net dotnet testing integration action actions nondeterministic wait waiting</tags>
   </metadata>
 </package>
