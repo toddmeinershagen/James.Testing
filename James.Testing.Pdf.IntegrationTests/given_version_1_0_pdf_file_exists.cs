@@ -122,5 +122,16 @@ namespace James.Testing.Pdf.IntegrationTests
                 .Contains(48.04)
                 .Should().BeFalse();
         }
+
+        [Test]
+        public void when_checking_if_page_text_contains_a_value_should_be_true()
+        {
+            Content
+                .Current()
+                .Page(1)
+                .Text()
+                .Contains("48.05")
+                .Should().BeTrue();
+        }
     }
 }

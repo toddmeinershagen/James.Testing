@@ -41,7 +41,7 @@ namespace James.Testing.Pdf
             return new Content(ReadFully(stream));
         }
 
-        public static byte[] ReadFully(Stream input)
+        private static byte[] ReadFully(Stream input)
         {
             var buffer = new byte[16 * 1024];
             using (var ms = new MemoryStream())
