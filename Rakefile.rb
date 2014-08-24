@@ -31,6 +31,7 @@ namespace :package do
 		create_pack 'James.Testing'
 		create_pack 'James.Testing.Rest'
 		create_pack 'James.Testing.Wcf'
+		create_pack 'James.Testing.Pdf'
 		create_pack 'James.Abstractions.System'
 	end
 
