@@ -3,7 +3,7 @@ James
 James is a set of libraries of test utilities named after the author who wrote the book of James in the Bible.
 
 >"Dear brothers and sisters, when troubles come your way, consider it an opportunity for great joy. For you know that when your faith is tested, your endurance has a chance to grow."
->**(James 1:2-3)**
+**(James 1:2-3)**
 
 It's a fairly apt description of what testing ought to do for our applications as well.  As we validate our applications through testing like our faith, it has a chance to grow in quality and depth.
 
