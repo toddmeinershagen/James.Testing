@@ -1,68 +1,7 @@
-﻿using System.Collections.Generic;
-using System.Dynamic;
-using System.Linq;
-using System.Reflection;
-using System.Threading;
+﻿using System.Threading;
 
 namespace James.Testing.Rest
 {
-    public class DynamicDictionary : DynamicObject
-    {
-        private readonly Dictionary<string, object> _dictionary;
-
-        public DynamicDictionary(object value)
-            : this(new Dictionary<string, object>())
-        {
-            foreach (var property in value.GetType().GetProperties(BindingFlags.Instance | BindingFlags.Public))
-            {
-                _dictionary[property.Name] = property.GetValue(value, null);
-            }
-        }
-
-        public DynamicDictionary()
-            : this(new Dictionary<string, object>())
-        {}
-
-        public DynamicDictionary(Dictionary<string, object> dictionary)
-        {
-            this._dictionary = dictionary;
-        }
-
-        public static DynamicDictionary FromObject(object value)
-        {
-            return new DynamicDictionary(value);
-        }
-
-        public override bool TryGetMember(
-            GetMemberBinder binder, out object result)
-        {
-            return _dictionary.TryGetValue(binder.Name, out result);
-        }
-
-        public override bool TrySetMember(
-            SetMemberBinder binder, object value)
-        {
-            _dictionary[binder.Name] = value;
-
-            return true;
-        }
-
-        public List<string> GetMemberNames()
-        {
-            return _dictionary.Keys.ToList();
-        }
-
-        public object Get(string name)
-        {
-            return _dictionary[name];
-        }
-
-        public void Add(string name, string value)
-        {
-            _dictionary[name] = value;
-        }
-    }
-
     public class Request
     {
         private readonly string _uriString;
@@ -104,7 +43,7 @@ namespace James.Testing.Rest
             return Execute(new GetAsDynamic<dynamic>(_uriString, _headers, _query));
         }
  
-        public IResponse<TResponse, string> Get<TResponse>()
+        public IResponse<TResponse, dynamic> Get<TResponse>()
         {
             return Execute(new GetRequest<TResponse, string>(_uriString, _headers, _query));
         }
@@ -124,9 +63,14 @@ namespace James.Testing.Rest
             return Post<TBody, TResponse, string>(body);
         }
 
-        public IResponse<string, string> Delete()
+        public IResponse<dynamic, dynamic> Post(dynamic body)
         {
-            return Execute(new DeleteRequest<string>(_uriString, _headers, _query));
+            return Post<object, object, object>(body);
+        }
+
+        public IResponse<dynamic, dynamic> Delete()
+        {
+            return Execute(new DeleteRequest<object, object>(_uriString, _headers, _query));
         }
 
         private static IResponse<TResponse, TError> Execute<TResponse, TError>(IRequest<TResponse, TError> request)
@@ -143,7 +87,7 @@ namespace James.Testing.Rest
             return _currentResponse.IsValueCreated ? _currentResponse.Value as IResponse<TResponse, TError> : null;
         }
 
-        public static IResponse<TResponse, string> CurrentResponse<TResponse>()
+        public static IResponse<TResponse, dynamic> CurrentResponse<TResponse>()
         {
             return CurrentResponse<TResponse, string>();
         }

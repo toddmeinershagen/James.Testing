@@ -210,7 +210,7 @@ namespace James.Testing.Rest.IntegrationTests.RequestTests
                     QuerySent = Request.Query.Id != null;
 
                     return Negotiate
-                        .WithModel(Guid.NewGuid())
+                        .WithModel(personId)
                         .WithStatusCode(Nancy.HttpStatusCode.Created)
                         .WithHeader("Location", location);
                 }

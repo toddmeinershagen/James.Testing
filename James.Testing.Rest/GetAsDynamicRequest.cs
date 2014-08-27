@@ -12,7 +12,7 @@ namespace James.Testing.Rest
         protected override IResponse<dynamic, TError> GetResponse(Uri uri, HttpClient client)
         {
             var response = client.GetAsync(uri.PathAndQuery).Result;
-            return new Response<dynamic, TError>(response, r => r.Content.ReadAsAsync<object>().Result);
+            return new Response<dynamic, TError>(response);
         }
     }
 }

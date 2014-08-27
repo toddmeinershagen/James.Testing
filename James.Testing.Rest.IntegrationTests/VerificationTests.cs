@@ -26,7 +26,7 @@ namespace James.Testing.Rest.IntegrationTests
         public void given_status_code_is_another_status_code_when_verifying_that_is_another_status_code_should_return_true()
         {
             var message = new HttpResponseMessage { StatusCode = HttpStatusCode.OK };
-            IResponse<Guid, string> response = new Response<Guid, string>(message, r => Guid.Empty);
+            IResponse<Guid, string> response = new Response<Guid, string>(message);
 
             response.VerifyThat(r => r.StatusCode).Is(HttpStatusCode.OK);
         }
@@ -35,7 +35,7 @@ namespace James.Testing.Rest.IntegrationTests
         public void given_status_code_is_not_another_status_code_when_verifying_that_is_another_status_code_should_throw_exception()
         {
             var message = new HttpResponseMessage { StatusCode = HttpStatusCode.OK };
-            IResponse<Guid, string> response = new Response<Guid, string>(message, r => Guid.Empty);
+            IResponse<Guid, string> response = new Response<Guid, string>(message);
 
             Action action = () => response.VerifyThat(r => r.StatusCode).Is(HttpStatusCode.BadRequest);
 

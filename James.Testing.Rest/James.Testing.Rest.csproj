@@ -49,6 +49,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DynamicDictionary.cs" />
     <Compile Include="HttpClientExtensions.cs" />
     <Compile Include="RequestBase.cs" />
     <Compile Include="DeleteRequest.cs" />
