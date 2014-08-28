@@ -53,8 +53,6 @@
     <Compile Include="HttpClientExtensions.cs" />
     <Compile Include="RequestBase.cs" />
     <Compile Include="DeleteRequest.cs" />
-    <Compile Include="GetAsBytesRequest.cs" />
-    <Compile Include="GetAsDynamicRequest.cs" />
     <Compile Include="GetRequest.cs" />
     <Compile Include="IRequest.cs" />
     <Compile Include="IResponse.cs" />

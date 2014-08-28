@@ -40,22 +40,22 @@ namespace James.Testing.Rest
 
         public IResponse<dynamic, dynamic> Get()
         {
-            return Execute(new GetAsDynamic<dynamic>(_uriString, _headers, _query));
+            return Get<dynamic, dynamic>();
         }
  
         public IResponse<TResponse, dynamic> Get<TResponse>()
         {
-            return Execute(new GetRequest<TResponse, string>(_uriString, _headers, _query));
+            return Get<TResponse, dynamic>();
         }
 
-        public IResponse<byte[], string> GetAsBytes()
+        public IResponse<TResponse, TError> Get<TResponse, TError>()
         {
-            return Execute(new GetAsBytes<string>(_uriString, _headers, _query));
+            return Execute(new GetRequest<TResponse, TError>(_uriString, _headers, _query));
         }
 
-        public IResponse<TResponse, TError> Post<TBody, TResponse, TError>(TBody body)
+        public IResponse<dynamic, dynamic> Post(dynamic body)
         {
-            return Execute(new PostRequest<TBody, TResponse, TError>(_uriString, body, _headers, _query));
+            return Post<object, object, object>(body);
         }
 
         public IResponse<TResponse, string> Post<TBody, TResponse>(TBody body)
@@ -63,9 +63,9 @@ namespace James.Testing.Rest
             return Post<TBody, TResponse, string>(body);
         }
 
-        public IResponse<dynamic, dynamic> Post(dynamic body)
+        public IResponse<TResponse, TError> Post<TBody, TResponse, TError>(TBody body)
         {
-            return Post<object, object, object>(body);
+            return Execute(new PostRequest<TBody, TResponse, TError>(_uriString, body, _headers, _query));
         }
 
         public IResponse<dynamic, dynamic> Delete()
@@ -89,7 +89,7 @@ namespace James.Testing.Rest
 
         public static IResponse<TResponse, dynamic> CurrentResponse<TResponse>()
         {
-            return CurrentResponse<TResponse, string>();
+            return CurrentResponse<TResponse, dynamic>();
         }
 
         public static IResponse<dynamic, dynamic> CurrentResponse()

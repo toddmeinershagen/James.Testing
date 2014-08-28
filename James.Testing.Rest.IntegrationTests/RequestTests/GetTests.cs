@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Net;
 using James.Testing.Rest.IntegrationTests.Models;
 using Nancy;
 using NUnit.Framework;
@@ -119,13 +118,13 @@ namespace James.Testing.Rest.IntegrationTests.RequestTests
         {
             Request
                 .WithUri(GetUriString(GetModule.DocumentsResource) + "/" + Guid.NewGuid())
-                .GetAsBytes();
+                .Get<byte[]>();
         }
 
         [Test]
         public void should_return_bytes()
         {
-            Request
+           Request
                 .CurrentResponse<byte[]>()
                 .Verify(r => r.Body.Length > 0);
         }

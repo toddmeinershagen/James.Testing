@@ -67,6 +67,7 @@
   <ItemGroup>
     <Compile Include="ByteArrayResponse.cs" />
     <Compile Include="HttpClientExtensionsTests.cs" />
+    <Compile Include="Models\Car.cs" />
     <Compile Include="RequestTests\CurrentResponseTests.cs" />
     <Compile Include="RequestTests\DeleteTests.cs" />
     <Compile Include="Models\Error.cs" />
