@@ -151,9 +151,9 @@ namespace James.Testing.Rest.IntegrationTests.RequestTests
         [Test]
         public void should_return_body_as_empty_string()
         {
-            Request
+            var body = Request
                 .CurrentResponse()
-                .Verify(r => string.IsNullOrEmpty(r.Body));
+                .Verify(r => r.Body.message == "This is the message.");
         }
     }
 

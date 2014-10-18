@@ -67,6 +67,7 @@
   <ItemGroup>
     <Compile Include="ByteArrayResponse.cs" />
     <Compile Include="HttpClientExtensionsTests.cs" />
+    <Compile Include="Models\Car.cs" />
     <Compile Include="RequestTests\CurrentResponseTests.cs" />
     <Compile Include="RequestTests\DeleteTests.cs" />
     <Compile Include="Models\Error.cs" />
@@ -77,8 +78,7 @@
     <Compile Include="Models\Person.cs" />
     <Compile Include="RequestTests\PostTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="RequestTests\Request2Tests.cs" />
-    <Compile Include="VerificationTests.cs" />
+    <Compile Include="RequestTests\RequestPostTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />

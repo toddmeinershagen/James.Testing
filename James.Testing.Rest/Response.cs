@@ -12,50 +12,57 @@ namespace James.Testing.Rest
         public HttpResponseHeaders Headers { get; private set; }
         public TError Error { get; private set; }
 
-        public Response(HttpResponseMessage response, Func<HttpResponseMessage, TResponse> getContent)
+        public Response(HttpResponseMessage response)
         {
             StatusCode = response.StatusCode;
             Headers = response.Headers;
 
             if (response.IsSuccessStatusCode)
             {
-                Body = getContent(response);
+                Body = GetContent<TResponse>(response.Content);
                 Error = default(TError);
             }
             else
             {
-                HandleError(response);
+                Body = default(TResponse);
+                Error = GetContent<TError>(response.Content);
             }
         }
 
-        private void HandleError(HttpResponseMessage response)
+        private T GetContent<T>(HttpContent content)
         {
-            Body = default(TResponse);
+            if (content == null)
+                return default(T);
 
-            if (typeof (TError) == typeof (string))
+            var requestedType = typeof (T);
+
+            if (requestedType == typeof(string))
             {
-                var result = response.Content.ReadAsStringAsync().Result;
-                Error = (TError) (result as object);
+                var result = content.ReadAsStringAsync().Result;
+                return (T)(result as object);
             }
-            else if (typeof (TError) == typeof (object))
+
+            if (requestedType == typeof (byte[]))
+            {
+                object result = content.ReadAsByteArrayAsync().Result;
+                return (T)result;
+            }
+            
+            if (requestedType == typeof(object))
             {
                 try
                 {
-                    var result = response.Content.ReadAsAsync<object>().Result;
-                    Error = (TError)result;
+                    var result = content.ReadAsAsync<object>().Result;
+                    return (T)result;
                 }
                 catch (UnsupportedMediaTypeException ex)
                 {
-                    var result = response.Content.ReadAsStringAsync().Result;
-                    Error = (TError) (result as object);
+                    var result = content.ReadAsStringAsync().Result;
+                    return (T)(result as object);
                 }
             }
-            else
-            {
-                Error = response.Content.ReadAsAsync<TError>().Result;
-            }
+            
+            return content.ReadAsAsync<T>().Result;
         }
     }
-
-        
 }

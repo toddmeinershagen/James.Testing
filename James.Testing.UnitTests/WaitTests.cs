@@ -66,7 +66,7 @@ namespace James.Testing.UnitTests
         }
 
         [Test]
-        public void given_predicate_never_returns_true_and_timeout_when_waiting_until_predicate_is_true_should_wait_until_timeout()
+        public void given_predicate_never_returns_true_and_timeout_as_timespan_when_waiting_until_predicate_is_true_should_wait_until_timeout()
         {
             var timeout = TimeSpan.FromMilliseconds(5);
 
@@ -80,7 +80,7 @@ namespace James.Testing.UnitTests
         }
 
         [Test]
-        public void given_null_predicate_and_timeout_when_waiting_until_predicate_is_true_should_wait_until_timeout()
+        public void given_null_predicate_and_timeout_as_timespan_when_waiting_until_predicate_is_true_should_wait_until_timeout()
         {
             var timeout = TimeSpan.FromMilliseconds(5);
 
@@ -91,6 +91,34 @@ namespace James.Testing.UnitTests
 
             watch.Stop();
             watch.Elapsed.Should().BeCloseTo(timeout);
+        }
+
+        [Test]
+        public void given_predicate_never_returns_true_and_timeout_in_seconds_when_waiting_until_predicate_is_true_should_wait_until_timeout()
+        {
+            const int timeoutInSeconds = 7;
+
+            var watch = new Stopwatch();
+            watch.Start();
+
+            Wait.Until(() => false, timeoutInSeconds);
+
+            watch.Stop();
+            watch.Elapsed.Should().BeCloseTo(TimeSpan.FromSeconds(timeoutInSeconds));
+        }
+
+        [Test]
+        public void given_null_predicate_and_timeout_in_timespan_when_waiting_until_predicate_is_true_should_wait_until_timeout()
+        {
+            const int timeoutInSeconds = 2;
+
+            var watch = new Stopwatch();
+            watch.Start();
+
+            Wait.Until(null, timeoutInSeconds);
+
+            watch.Stop();
+            watch.Elapsed.Should().BeCloseTo(TimeSpan.FromSeconds(timeoutInSeconds));
         }
     }
 }

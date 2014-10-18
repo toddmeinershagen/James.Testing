@@ -2,7 +2,11 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+<<<<<<< HEAD
+using System.Net;
 using FluentAssertions;
+=======
+>>>>>>> 67b6380c6c1ca26d8e8794dae03a69131139787e
 using James.Testing.Rest.IntegrationTests.Models;
 using Nancy;
 using NUnit.Framework;

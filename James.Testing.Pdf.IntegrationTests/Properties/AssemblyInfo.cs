@@ -5,11 +5,11 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("James.Testing.Rest")]
-[assembly: AssemblyDescription("A library of helpers for the purpose of testing rest-based services.  It is named after the author who wrote the book of James in the Bible.  (James 1:2-3)")]
+[assembly: AssemblyTitle("James.Testing.Pdf.IntegrationTests")]
+[assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("Todd Meinershagen")]
-[assembly: AssemblyProduct("James.Testing.Rest")]
+[assembly: AssemblyCompany("")]
+[assembly: AssemblyProduct("James.Testing.Pdf.IntegrationTests")]
 [assembly: AssemblyCopyright("Copyright ©  2014")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
@@ -20,7 +20,7 @@ using System.Runtime.InteropServices;
 [assembly: ComVisible(false)]
 
 // The following GUID is for the ID of the typelib if this project is exposed to COM
-[assembly: Guid("0fee6814-624d-4dec-a9fd-510391053d4d")]
+[assembly: Guid("5e15475c-e9ac-4cbe-b15b-cdb18c57cfeb")]
 
 // Version information for an assembly consists of the following four values:
 //
@@ -32,7 +32,5 @@ using System.Runtime.InteropServices;
 // You can specify all the values or you can default the Build and Revision Numbers 
 // by using the '*' as shown below:
 // [assembly: AssemblyVersion("1.0.*")]
-[assembly: AssemblyVersion("0.5.5.0")]
-[assembly: AssemblyFileVersion("0.5.5.0")]
-
-[assembly: InternalsVisibleTo("James.Testing.Rest.IntegrationTests")]
+[assembly: AssemblyVersion("1.0.0.0")]
+[assembly: AssemblyFileVersion("1.0.0.0")]

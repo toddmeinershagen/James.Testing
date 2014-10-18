@@ -7,11 +7,14 @@
     <authors>$author$</authors>
     <owners>$author$</owners>
     <licenseUrl>https://github.com/toddmeinershagen/James.Testing/LICENSE</licenseUrl>
-    <projectUrl>https://github.com/toddmeinershagen/James.Testing/wiki/James.Testing</projectUrl>
+    <projectUrl>https://github.com/toddmeinershagen/James.Testing/wiki/James.Testing.Pdf</projectUrl>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <description>$description$</description>
-    <releaseNotes>Added functionality to include waiting for a given time period and waiting until some state change.</releaseNotes>
-    <copyright>Copyright 2013</copyright>
-    <tags>test .net dotnet testing integration action actions nondeterministic wait waiting</tags>
+    <releaseNotes>Initial release includes .</releaseNotes>
+    <copyright>Copyright  2014</copyright>
+    <tags>test .net dotnet testing pdf</tags>
+    <dependencies>
+      <dependency id="James.Testing" version="1.0.4.0"></dependency>
+    </dependencies>
   </metadata>
 </package>

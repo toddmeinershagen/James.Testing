@@ -17,7 +17,7 @@ namespace James.Testing.Rest
         protected override IResponse<TResponse, TError> GetResponse(Uri uri, HttpClient client)
         {
             var response = client.PostAsync(uri.PathAndQuery, _body, new JsonMediaTypeFormatter()).Result;
-            return new Response<TResponse, TError>(response, r => r.Content.ReadAsAsync<TResponse>().Result);
+            return new Response<TResponse, TError>(response);
         }
     }
 }
