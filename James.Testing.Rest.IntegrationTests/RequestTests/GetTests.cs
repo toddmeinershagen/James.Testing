@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Net;
+using FluentAssertions;
 using James.Testing.Rest.IntegrationTests.Models;
 using Nancy;
 using NUnit.Framework;
@@ -35,7 +36,7 @@ namespace James.Testing.Rest.IntegrationTests.RequestTests
                 .WithUri(GetUriString("DoesNotExist"))
                 .Get<object>()
                 .Verify("Body == null", r => r.Body == null)
-                .VerifyThat(r => r.StatusCode).Is(HttpStatusCode.NotFound);
+                .VerifyThat(r => r.StatusCode.Should().Be(HttpStatusCode.NotFound));
         }
 
         [Test]
@@ -45,7 +46,7 @@ namespace James.Testing.Rest.IntegrationTests.RequestTests
                 .WithUri(GetUriString(GetModule.HeadersResource))
                 .WithHeaders(new {Id = "1;1", Test = "verify", x_medassets_auth = "test"})
                 .Get<Dictionary<string, string>>()
-                .VerifyThat(r => r.StatusCode).Is(HttpStatusCode.OK)
+                .VerifyThat(r => r.StatusCode.Should().Be(HttpStatusCode.OK))
                 .Verify(r => r.Body["id"] == "1;1")
                 .Verify(r => r.Body["test"] == "verify")
                 .Verify(r => r.Body["x-medassets-auth"] == "test");
@@ -59,7 +60,7 @@ namespace James.Testing.Rest.IntegrationTests.RequestTests
                 .WithQueryValue("FirstName", "Todd")
                 .WithQueryValue("LastName", "Meinershagen")
                 .Get<Person>()
-                .VerifyThat(r => r.StatusCode).Is(HttpStatusCode.OK)
+                .VerifyThat(r => r.StatusCode.Should().Be(HttpStatusCode.OK))
                 .Verify(r => r.Body.FirstName == "Todd")
                 .Verify(r => r.Body.LastName == "Meinershagen");
         }
@@ -79,11 +80,12 @@ namespace James.Testing.Rest.IntegrationTests.RequestTests
         {
             Request
                 .WithUri(GetUriString(GetModule.HeadersResource))
-                .WithHeaders(new {Id = "1", FirstName = "Tammy", LastName = "Bennett"})
+                .WithHeaders(new {Id = "1", FirstName = "Tammy", LastName = "Bennett", DateOfBirth = new DateTime(1972, 11, 23)})
                 .Get()
                 .Verify(r => r.Body.id == "1")
                 .Verify(r => r.Body.firstName == "Tammy")
-                .Verify(r => r.Body.lastName == "Bennett");
+                .Verify(r => r.Body.lastName == "Bennett")
+                .Verify(r => r.Body.dateOfBirth == "11/23/1972 12:00:00 AM");
         }
 
         [Test]
@@ -95,7 +97,7 @@ namespace James.Testing.Rest.IntegrationTests.RequestTests
                 .Get()
                 .Verify("Body == null", r => r.Body == null)
                 .Verify(r => r.Error.message == "This is the message.")
-                .VerifyThat(r => r.StatusCode).Is(HttpStatusCode.BadRequest);
+                .VerifyThat(r => r.StatusCode.Should().Be(HttpStatusCode.BadRequest));
         }
 
         [Test]
@@ -107,7 +109,7 @@ namespace James.Testing.Rest.IntegrationTests.RequestTests
                 .Get()
                 .Verify("Body == null", r => r.Body == null)
                 .Verify(r => r.Error == "This is the error message.")
-                .VerifyThat(r => r.StatusCode).Is(HttpStatusCode.BadRequest);
+                .VerifyThat(r => Assert.AreEqual(r.StatusCode, HttpStatusCode.BadRequest));
         }
     }
 

@@ -1,9 +1,6 @@
-﻿using System;
-using System.Net.Http;
-using FluentAssertions;
+﻿using FluentAssertions;
 using James.Testing.Rest.IntegrationTests.Models;
 using NUnit.Framework;
-using HttpStatusCode = System.Net.HttpStatusCode;
 
 namespace James.Testing.Rest.IntegrationTests
 {
@@ -20,26 +17,6 @@ namespace James.Testing.Rest.IntegrationTests
             value.Store(out output, x => x.LastName);
 
             output.Should().Be(value.LastName);
-        }
-
-        [Test]
-        public void given_status_code_is_another_status_code_when_verifying_that_is_another_status_code_should_return_true()
-        {
-            var message = new HttpResponseMessage { StatusCode = HttpStatusCode.OK };
-            IResponse<Guid, string> response = new Response<Guid, string>(message, r => Guid.Empty);
-
-            response.VerifyThat(r => r.StatusCode).Is(HttpStatusCode.OK);
-        }
-
-        [Test]
-        public void given_status_code_is_not_another_status_code_when_verifying_that_is_another_status_code_should_throw_exception()
-        {
-            var message = new HttpResponseMessage { StatusCode = HttpStatusCode.OK };
-            IResponse<Guid, string> response = new Response<Guid, string>(message, r => Guid.Empty);
-
-            Action action = () => response.VerifyThat(r => r.StatusCode).Is(HttpStatusCode.BadRequest);
-
-            action.ShouldThrow<VerificationException>().WithMessage("Unable to verify that status code is BadRequest.  Found OK.");
         }
     }
 }

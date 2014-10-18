@@ -47,68 +47,24 @@ namespace James.Testing.UnitTests
             action.ShouldNotThrow();
         }
 
-        [Test]
-        public void given_empty_guid_when_verifying_that_it_is_not_empty_should_throw_exception()
+        [Test] 
+        public void given_assertion_that_does_not_fail_should_return_original_value()
         {
-            var message = new {Id = Guid.Empty};
-            Action action = () => message.VerifyThat(v => v.Id).IsNotEmpty();
-            action.ShouldThrow<VerificationException>().WithMessage("Unable to verify that guid is not empty.");
+            var message = new {Name = "Todd"};
+            var result = message.VerifyThat(m => m.Name.Should().Be("Todd"));
+
+            result.Should().Be(message);
         }
 
         [Test]
-        public void given_non_empty_guid_when_verifying_that_it_is_not_empty_should_not_throw()
-        {
-            var message = new { Id = Guid.NewGuid() };
-            Action action = () => message.VerifyThat(v => v.Id).IsNotEmpty();
-            action.ShouldNotThrow();
-        }
-
-        [Test]
-        public void given_empty_guid_when_verifying_that_it_is_empty_should_not_thrown()
-        {
-            var message = new { Id = Guid.Empty };
-            Action action = () => message.VerifyThat(v => v.Id).IsEmpty();
-            action.ShouldNotThrow();
-        }
-
-        [Test]
-        public void given_non_empty_guid_when_verifying_that_it_is_empty_should_throw_exception()
-        {
-            var message = new { Id = Guid.NewGuid() };
-            Action action = () => message.VerifyThat(v => v.Id).IsEmpty();
-            action.ShouldThrow<VerificationException>().WithMessage("Unable to verify that guid is empty.");
-        }
-
-        [Test]
-        public void given_empty_string_when_verifying_that_it_is_not_empty_should_throw_exception()
-        {
-            var message = new { Name = string.Empty };
-            Action action = () => message.VerifyThat(v => v.Name).IsNotEmpty();
-            action.ShouldThrow<VerificationException>().WithMessage("Unable to verify that string is not empty.");
-        }
-
-        [Test]
-        public void given_non_empty_string_when_verifying_that_it_is_not_empty_should_not_throw()
+        public void given_assertion_that_fails_should_throw()
         {
             var message = new { Name = "Todd" };
-            Action action = () => message.VerifyThat(v => v.Name).IsNotEmpty();
-            action.ShouldNotThrow();
-        }
+            Action action = () => message.VerifyThat(m => m.Name.Should().Be("Tammy"));
 
-        [Test]
-        public void given_empty_string_when_verifying_that_it_is_empty_should_not_thrown()
-        {
-            var message = new { Name = string.Empty };
-            Action action = () => message.VerifyThat(v => v.Name).IsEmpty();
-            action.ShouldNotThrow();
-        }
-
-        [Test]
-        public void given_non_empty_string_when_verifying_that_it_is_empty_should_throw_exception()
-        {
-            var message = new { Name = "Todd" };
-            Action action = () => message.VerifyThat(v => v.Name).IsEmpty();
-            action.ShouldThrow<VerificationException>().WithMessage("Unable to verify that string is empty.");
+            action
+                .ShouldThrow<VerificationException>()
+                .WithMessage("Unable to verify.\r\nExpected string to be \"Tammy\" with a length of 5, but \"Todd\" has a length of 4.");
         }
     }
 }
