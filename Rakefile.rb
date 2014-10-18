@@ -62,7 +62,7 @@ namespace :package do
 		Dir.chdir('pack')
 		Dir.glob('*').each do |file|
 			sh NUGET + ' push ' + file
-			FileUtils.move(file,'../nuget/')
+			FileUtils.move(file,'nuget/')
 		end
 		Dir.chdir('..')
 		Dir.rmdir('pack')
