@@ -4,7 +4,7 @@ using iTextSharp.text.pdf.parser;
 
 namespace James.Testing.Pdf
 {
-    public class Page : IPage
+    internal class Page : IPage
     {
         private readonly Content _content;
         private readonly int _number;
