@@ -43,6 +43,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "James.Testing.Messaging.Mas
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "James.Testing.Messaging.MassTransit.IntegrationTests", "James.Testing.Messaging.MassTransit.IntegrationTests\James.Testing.Messaging.MassTransit.IntegrationTests.csproj", "{5E781AF0-78F9-438B-9320-696901BD1232}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{714B7BA7-1C11-4DCA-9EEB-EC8167A233FA}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -104,5 +106,13 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{18917A4C-3D98-4312-BE82-3C5F851EAAC2} = {714B7BA7-1C11-4DCA-9EEB-EC8167A233FA}
+		{835C170D-B6D5-4953-9C2B-E0E4ED7232DF} = {714B7BA7-1C11-4DCA-9EEB-EC8167A233FA}
+		{E716273B-F114-4CA6-A3B7-AD6FD9A2FC35} = {714B7BA7-1C11-4DCA-9EEB-EC8167A233FA}
+		{392D2280-7718-4B5F-ACBD-DDE4C1E06479} = {714B7BA7-1C11-4DCA-9EEB-EC8167A233FA}
+		{F22087BC-1028-4D90-B731-C9DE03758EF7} = {714B7BA7-1C11-4DCA-9EEB-EC8167A233FA}
+		{5E781AF0-78F9-438B-9320-696901BD1232} = {714B7BA7-1C11-4DCA-9EEB-EC8167A233FA}
 	EndGlobalSection
 EndGlobal
