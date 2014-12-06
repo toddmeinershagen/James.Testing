@@ -1,6 +1,8 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 2012
+# Visual Studio 2013
+VisualStudioVersion = 12.0.31101.0
+MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "James.Testing", "James.Testing\James.Testing.csproj", "{FB9E3DBB-0F82-41F5-82F8-39215D8756F7}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "James.Testing.UnitTests", "James.Testing.UnitTests\James.Testing.UnitTests.csproj", "{18917A4C-3D98-4312-BE82-3C5F851EAAC2}"
@@ -34,6 +36,12 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "James.Testing.Pdf", "James.Testing.Pdf\James.Testing.Pdf.csproj", "{57C2F680-45E8-44F1-9159-C46124798B6C}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "James.Testing.Pdf.IntegrationTests", "James.Testing.Pdf.IntegrationTests\James.Testing.Pdf.IntegrationTests.csproj", "{F22087BC-1028-4D90-B731-C9DE03758EF7}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "James.Testing.Messaging", "James.Testing.Messaging\James.Testing.Messaging.csproj", "{9687238C-B30B-4A4B-ADD7-59CC7EFA1CA1}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "James.Testing.Messaging.MassTransit", "James.Testing.Messaging.MassTransit\James.Testing.Messaging.MassTransit.csproj", "{60A1CEA9-3573-42D1-BC95-DFC498FC9A10}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "James.Testing.Messaging.MassTransit.IntegrationTests", "James.Testing.Messaging.MassTransit.IntegrationTests\James.Testing.Messaging.MassTransit.IntegrationTests.csproj", "{5E781AF0-78F9-438B-9320-696901BD1232}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -81,6 +89,18 @@ Global
 		{F22087BC-1028-4D90-B731-C9DE03758EF7}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F22087BC-1028-4D90-B731-C9DE03758EF7}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F22087BC-1028-4D90-B731-C9DE03758EF7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9687238C-B30B-4A4B-ADD7-59CC7EFA1CA1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9687238C-B30B-4A4B-ADD7-59CC7EFA1CA1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9687238C-B30B-4A4B-ADD7-59CC7EFA1CA1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9687238C-B30B-4A4B-ADD7-59CC7EFA1CA1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{60A1CEA9-3573-42D1-BC95-DFC498FC9A10}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{60A1CEA9-3573-42D1-BC95-DFC498FC9A10}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{60A1CEA9-3573-42D1-BC95-DFC498FC9A10}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{60A1CEA9-3573-42D1-BC95-DFC498FC9A10}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5E781AF0-78F9-438B-9320-696901BD1232}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5E781AF0-78F9-438B-9320-696901BD1232}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5E781AF0-78F9-438B-9320-696901BD1232}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5E781AF0-78F9-438B-9320-696901BD1232}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
