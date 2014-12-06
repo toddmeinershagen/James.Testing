@@ -62,7 +62,7 @@
     <Compile Include="Infrastructure\BusEnvironment.cs" />
     <Compile Include="Infrastructure\EndpointCacheProxy.cs" />
     <Compile Include="Infrastructure\EndpointTestFixture.cs" />
-    <Compile Include="given_simple_implementation_when_sending_request_succeeds.cs" />
+    <Compile Include="given_successful_response_when_sending_request.cs" />
     <Compile Include="Infrastructure\LoopbackLocalAndRemoteTestFixture.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

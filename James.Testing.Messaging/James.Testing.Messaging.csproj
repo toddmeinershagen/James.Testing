@@ -43,6 +43,7 @@
     <Compile Include="IBus.cs" />
     <Compile Include="IBusEnvironment.cs" />
     <Compile Include="IResponse.cs" />
+    <Compile Include="MemoizedBus.cs" />
     <Compile Include="Messaging.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

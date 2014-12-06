@@ -8,12 +8,20 @@ using NUnit.Framework;
 namespace James.Testing.Messaging.MassTransit.IntegrationTests
 {
     [TestFixture]
-    public class given_simple_implementation_when_sending_request_succeeds : LoopbackLocalAndRemoteTestFixture
+    public class given_successful_response_when_sending_request : LoopbackLocalAndRemoteTestFixture
     {
+        private Guid _id;
+
         [SetUp]
         public void SetUp()
         {
             RemoteBus.SubscribeContextHandler<Input>(Respond);
+
+            _id = Guid.NewGuid();
+
+            Messaging
+                .With(new BusEnvironment(LocalBus))
+                .SendRequest<Input, Output>(RemoteUri, new Input {Id = _id});
         }
 
         public void Respond(IConsumeContext<Input> context)
@@ -25,17 +33,10 @@ namespace James.Testing.Messaging.MassTransit.IntegrationTests
         [Test]
         public void should_return_response_message()
         {
-            var id = Guid.NewGuid();
-            
             Messaging
-                .With(new BusEnvironment(LocalBus))
-                .SendRequest<Input, Output>(RemoteUri, new Input{Id = id})
-                .VerifyThat(r => r.Message.Id.Should().Be(id));
-             
-            //Messaging
-            //    .With<BusEnvironment>()
-            //    .CurrentResponse()
-            //    .VerifyThat(r => r.Message.Id.Should().Be(id));
+                .CurrentResponse<Output>()
+                .VerifyThat(r => r.Message.Should().NotBeNull())
+                .VerifyThat(r => r.Message.ShouldBeEquivalentTo(new {Id = _id}));
         }
 
         [Test]
@@ -44,8 +45,7 @@ namespace James.Testing.Messaging.MassTransit.IntegrationTests
             var id = Guid.NewGuid();
 
             Messaging
-                .With(new BusEnvironment(LocalBus))
-                .SendRequest<Input, Output>(RemoteUri, new Input { Id = id })
+                .CurrentResponse<Output>()
                 .VerifyThat(r => r.Elapsed.Should().BeCloseTo(TimeSpan.FromSeconds(2), 500));
         }
 
