@@ -22,20 +22,20 @@ namespace :build do
     msb.targets args[:targets]
     msb.solution = "#{SOLUTION_DIR}/#{SOLUTION_FILE}"
   end
-  
+
 end
 
 namespace :package do
 
-	def create_packs()
-		create_pack 'James.Testing'
-		create_pack 'James.Testing.Rest'
-		create_pack 'James.Testing.Wcf'
-		create_pack 'James.Testing.Pdf'
-		create_pack 'James.Testing.Messaging'
-		create_pack 'James.Testing.Messaging.MassTransit'
-		create_pack 'James.Abstractions.System'
-	end
+  def create_packs()
+    create_pack 'James.Testing'
+    create_pack 'James.Testing.Rest'
+    create_pack 'James.Testing.Wcf'
+    create_pack 'James.Testing.Pdf'
+    create_pack 'James.Testing.Messaging'
+    create_pack 'James.Testing.Messaging.MassTransit'
+    create_pack 'James.Abstractions.System'
+  end
 
 	def create_pack(name)
 		puts
@@ -48,7 +48,7 @@ namespace :package do
 
 	task :packall => [ :clean ] do
 		Dir.mkdir('pack')
-		create_packs	
+		create_packs
 		Dir.glob('pack/*') { |file| FileUtils.move(file,'nuget/') }
 		Dir.rmdir('pack')
 	end
@@ -60,7 +60,7 @@ namespace :package do
 		sh NUGET + ' setApiKey ' + key
 
 		Dir.mkdir('pack')
-		create_packs	
+		create_packs
 		Dir.chdir('pack')
 		Dir.glob('*').each do |file|
 			sh NUGET + ' push ' + file
