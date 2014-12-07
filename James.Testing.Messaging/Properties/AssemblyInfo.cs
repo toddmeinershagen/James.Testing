@@ -8,7 +8,7 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyTitle("James.Testing.Messaging")]
 [assembly: AssemblyDescription("A library of helpers for the purpose of testing message-based services.  It is named after the author who wrote the book of James in the Bible.  (James 1:2-3)")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("")]
+[assembly: AssemblyCompany("Todd Meinershagen")]
 [assembly: AssemblyProduct("James.Testing.Messaging")]
 [assembly: AssemblyCopyright("Copyright ©  2014")]
 [assembly: AssemblyTrademark("")]

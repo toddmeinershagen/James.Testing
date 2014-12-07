@@ -9,20 +9,17 @@ SOLUTION_DIR = RAKE_DIR
 SOLUTION_FILE = 'James.Testing.sln'
 NUGET = SOLUTION_DIR + "/.nuget/nuget.exe"
 
-task :default => ['build:msbuild']
+task :default => ['build']
 # task :test => ['build:mstest' ]
 task :package => ['package:packall']
 task :push => ['package:pushall']
 
-namespace :build do
 
-  msbuild :msbuild, [:targets] do |msb, args|
-    args.with_defaults(:targets => :Build)
-    msb.properties :configuration => CONFIG
-    msb.targets args[:targets]
-    msb.solution = "#{SOLUTION_DIR}/#{SOLUTION_FILE}"
-  end
-
+build :build do |b|
+  b.sln  = "#{SOLUTION_DIR}/#{SOLUTION_FILE}"
+  b.target = ['Clean', 'Rebuild']
+  b.prop 'Configuration', CONFIG
+  b.logging = 'quiet'
 end
 
 namespace :package do
