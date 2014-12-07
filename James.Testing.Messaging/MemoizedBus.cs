@@ -30,13 +30,6 @@ namespace James.Testing.Messaging
             return response;
         }
 
-        public IResponse<TResponse> SendRequest<TRequest, TResponse>(Uri destinationAddress, TRequest message, TimeSpan timeout, Guid requestId) where TRequest : class where TResponse : class
-        {
-            var response = _innerBus.SendRequest<TRequest, TResponse>(destinationAddress, message, timeout, requestId);
-            _currentResponse = response;
-            return response;
-        }
-
         private object _currentResponse;
  
         public IResponse<TResponse> CurrentResponse<TResponse>()

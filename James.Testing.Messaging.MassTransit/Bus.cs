@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Diagnostics;
-using System.Threading;
 using MassTransit;
 using MassTransit.BusConfigurators;
 
@@ -39,14 +38,7 @@ namespace James.Testing.Messaging.MassTransit
             return SendRequest<TRequest, TResponse>(destinationAddress, message, TimeSpan.FromSeconds(30));
         }
 
-        public IResponse<TResponse> SendRequest<TRequest, TResponse>(Uri destinationAddress, TRequest message, TimeSpan timeout)
-            where TRequest : class
-            where TResponse : class
-        {
-            return SendRequest<TRequest, TResponse>(destinationAddress, message, timeout, Guid.Empty);
-        }
-
-        public IResponse<TResponse> SendRequest<TRequest, TResponse>(Uri destinationAddress, TRequest message, TimeSpan timeout, Guid requestId) 
+        public IResponse<TResponse> SendRequest<TRequest, TResponse>(Uri destinationAddress, TRequest message, TimeSpan timeout) 
             where TRequest : class 
             where TResponse : class
         {
@@ -63,11 +55,6 @@ namespace James.Testing.Messaging.MassTransit
                     cfg.Handle<TResponse>(r => responseMessage = r);
                     cfg.HandleFault(f => exception = new BusException(f.Messages[0]));
                     cfg.SetTimeout(timeout);
-                }, ctx =>
-                {
-                    if (requestId == Guid.Empty)
-                        return;
-                    ctx.SetRequestId(requestId.ToString());
                 });
 
             watch.Stop();
