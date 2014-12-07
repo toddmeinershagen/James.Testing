@@ -32,7 +32,9 @@ namespace :package do
 		create_pack 'James.Testing.Rest'
 		create_pack 'James.Testing.Wcf'
 		create_pack 'James.Testing.Pdf'
-		create_pack 'James.Abstractions.System'
+		create_pack 'James.Testing.Messaging'
+		create_pack 'James.Testing.Messaging.MassTransit'
+		create_pack 'James.Abstractions.System''
 	end
 
 	def create_pack(name)
