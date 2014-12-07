@@ -59,11 +59,15 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="given_fault_when_sending_request.cs" />
+    <Compile Include="given_timeout_when_sending_request.cs" />
     <Compile Include="Infrastructure\BusEnvironment.cs" />
     <Compile Include="Infrastructure\EndpointCacheProxy.cs" />
     <Compile Include="Infrastructure\EndpointTestFixture.cs" />
     <Compile Include="given_successful_response_when_sending_request.cs" />
     <Compile Include="Infrastructure\LoopbackLocalAndRemoteTestFixture.cs" />
+    <Compile Include="Input.cs" />
+    <Compile Include="Output.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

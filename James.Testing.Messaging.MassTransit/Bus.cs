@@ -36,18 +36,26 @@ namespace James.Testing.Messaging.MassTransit
             where TResponse : class
         {
             TResponse responseMessage = null;
-            IResponse<TResponse> response = null;
+            Exception exception = null;
 
             var watch = new Stopwatch();
             watch.Start();
 
             _bus
                 .GetEndpoint(destinationAddress)
-                .SendRequest(message, _bus, cfg => cfg.Handle<TResponse>(r => responseMessage = r));
+                .SendRequest(message, _bus, cfg =>
+                {
+                    cfg.Handle<TResponse>(r => responseMessage = r);
+                    cfg.HandleFault(f => exception = new BusException(f.Messages[0]));
+                    cfg.SetTimeout(timeout);
+                });
 
             watch.Stop();
 
-            return new Response<TResponse>(responseMessage, watch.Elapsed);
+            if (exception == null)
+                return new Response<TResponse>(responseMessage, watch.Elapsed);
+
+            throw exception;
         }
 
         public IResponse<TResponse> SendRequest<TRequest, TResponse>(Uri destinationAddress, TRequest message)

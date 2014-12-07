@@ -48,15 +48,5 @@ namespace James.Testing.Messaging.MassTransit.IntegrationTests
                 .CurrentResponse<Output>()
                 .VerifyThat(r => r.Elapsed.Should().BeCloseTo(TimeSpan.FromSeconds(2), 500));
         }
-
-        public class Input
-        {
-            public Guid Id { get; set; }
-        }
-
-        public class Output
-        {
-            public Guid Id { get; set; }
-        }
     }
 }
