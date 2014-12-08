@@ -40,6 +40,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BusException.cs" />
+    <Compile Include="BusResponse.cs" />
     <Compile Include="BusTimeoutException.cs" />
     <Compile Include="IBus.cs" />
     <Compile Include="IBusEnvironment.cs" />

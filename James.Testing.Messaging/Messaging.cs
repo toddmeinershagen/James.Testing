@@ -5,7 +5,7 @@ namespace James.Testing.Messaging
 {
     public class Messaging
     {
-        private static readonly ThreadLocal<MemoizedBus> Bus = new ThreadLocal<MemoizedBus>();
+        private static readonly ThreadLocal<MemoizedBus> ThreadedBus = new ThreadLocal<MemoizedBus>();
  
         public static MemoizedBus With<TBusEnvironment>()
             where TBusEnvironment : IBusEnvironment, new()
@@ -16,14 +16,25 @@ namespace James.Testing.Messaging
 
         public static MemoizedBus With(IBusEnvironment environment)
         {
-            Bus.Value = new MemoizedBus(environment.CreateBus());
-            return Bus.Value;
+            ThreadedBus.Value = new MemoizedBus(environment.CreateBus());
+            return Bus;
         }
 
         public static IResponse<TResponse> CurrentResponse<TResponse>()
             where TResponse : class
         {
-            return Bus.IsValueCreated ? Bus.Value.CurrentResponse<TResponse>() : null;
+            return Bus == null ? null : Bus.CurrentResponse<TResponse>();
+        }
+
+        public static MemoizedBus Bus
+        {
+            get
+            {
+                return ThreadedBus.IsValueCreated && ThreadedBus.Value != null
+                    ? ThreadedBus.Value
+                    : null;
+
+            }
         }
     }
 }

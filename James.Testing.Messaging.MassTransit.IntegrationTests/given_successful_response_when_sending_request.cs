@@ -24,6 +24,14 @@ namespace James.Testing.Messaging.MassTransit.IntegrationTests
                 .SendRequest<Input, Output>(RemoteUri, new Input {Id = _id});
         }
 
+        [TearDown]
+        public void TearDown()
+        {
+            Messaging
+                .Bus
+                .Dispose();
+        }
+
         public void Respond(IConsumeContext<Input> context)
         {
             Thread.Sleep(TimeSpan.FromSeconds(2));

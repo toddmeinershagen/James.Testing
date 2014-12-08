@@ -9,4 +9,14 @@ namespace James.Testing.Messaging
 
         TimeSpan Elapsed { get; }
     }
+
+    public static class IResponseExtensions
+    {
+        public static MemoizedBus Bus<TResponse>(this IResponse<TResponse> response)
+            where TResponse : class
+        {
+            var busResponse = response as BusResponse<TResponse>;
+            return busResponse == null ? null : busResponse.Bus;
+        }
+    }
 }
