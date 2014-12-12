@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Diagnostics;
-using System.Threading;
 
 namespace James.Testing
 {
@@ -12,7 +11,6 @@ namespace James.Testing
             {
                 try
                 {
-                    //Thread.Sleep(waitTimeInSeconds * 1001);
                     Wait.For(waitTimeInSeconds).Seconds();
                     action();
                     break;
@@ -34,7 +32,6 @@ namespace James.Testing
             {
                 try
                 {
-                    //Thread.Sleep(waitTimeInSeconds * 1001);
                     Wait.For(waitTimeInSeconds).Seconds();
                     watch.Start();
                     action();
@@ -59,6 +56,18 @@ namespace James.Testing
             }
             catch
             {}
+        }
+
+        public static void ExecuteWithCleanup(this Action action, Action cleanup)
+        {
+            try
+            {
+                action();
+            }
+            finally
+            {
+                cleanup();
+            }
         }
     }
 }

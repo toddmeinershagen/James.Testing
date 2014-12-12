@@ -52,6 +52,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ActionExtensions\when_executing_with_cleanup.cs" />
     <Compile Include="ActionExtensions\when_executing_with_retries.cs" />
     <Compile Include="ActionExtensions\when_executing_with_timeout.cs" />
     <Compile Include="BaseTest.cs" />
