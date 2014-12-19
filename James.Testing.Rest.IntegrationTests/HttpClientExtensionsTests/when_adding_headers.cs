@@ -56,16 +56,5 @@ namespace James.Testing.Rest.IntegrationTests.HttpClientExtensionsTests
             client.DefaultRequestHeaders.GetValues("x-medassets-auth").First().Should().Be(headers.x_medassets_auth);
             client.DefaultRequestHeaders.GetValues("x-requested-with").First().Should().Be(headers.x_requested_with);
         }
-
-        [Test]
-        public void given_null_query_object_should_not_throw()
-        {
-            object query = null;
-            var client = new HttpClient();
-
-            Action action = () => client.AddQuery(query);
-
-            action.ShouldNotThrow();
-        }
     }
 }
