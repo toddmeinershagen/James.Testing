@@ -1,6 +1,10 @@
 using System;
+using System.Collections;
+using System.Collections.Generic;
+using System.Linq;
 using System.Net.Http;
 using System.Reflection;
+using System.Security.Cryptography.X509Certificates;
 
 namespace James.Testing.Rest
 {
@@ -26,7 +30,9 @@ namespace James.Testing.Rest
 
             foreach (var property in query.GetType().GetProperties(BindingFlags.Instance | BindingFlags.Public))
             {
-                string queryToAppend = string.Format("{0}={1}", property.Name, property.GetValue(query, null));
+
+                var value = GetValue(query, property);
+                var queryToAppend = string.Format("{0}={1}", property.Name, value);
 
                 if (uriBuilder.Query != null && uriBuilder.Query.Length > 1)
                     uriBuilder.Query = uriBuilder.Query.Substring(1) + "&" + queryToAppend;
@@ -35,6 +41,19 @@ namespace James.Testing.Rest
             }
 
             client.BaseAddress = uriBuilder.Uri;
+        }
+
+        internal static object GetValue(object query, PropertyInfo property)
+        {
+            var value = property.GetValue(query, null);
+            var enumerableObjects = value as IEnumerable<object>;
+            var enumerableStructs = property.PropertyType != typeof(string) ? value as IEnumerable : null;
+
+            return enumerableObjects == null
+                ? enumerableStructs == null 
+                    ? value
+                    : string.Join(",", enumerableStructs.Cast<object>())
+                : string.Join(",", enumerableObjects);
         }
 
         internal static Uri With(this Uri uri, DynamicDictionary query)

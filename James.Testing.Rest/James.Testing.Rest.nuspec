@@ -10,7 +10,7 @@
     <projectUrl>https://github.com/toddmeinershagen/James.Testing</projectUrl>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <description>$description$</description>
-    <releaseNotes></releaseNotes>
+    <releaseNotes><![CDATA[Added the ability to construct a Request with querystring parameters that are arrays.  Example:  Request.WithUri("http://someuri.com").WithQuery(new { id= 2, codes = new[]{123, 456} }) would render as http://someuri.com?id=2&codes=123&codes=456 added by using ]]></releaseNotes>
     <copyright>Copyright  2014</copyright>
     <tags>test .net dotnet testing rest</tags>
     <dependencies>
