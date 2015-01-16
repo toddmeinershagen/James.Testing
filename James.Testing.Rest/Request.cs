@@ -1,21 +1,30 @@
-﻿using System.Threading;
+﻿using System;
+using System.Threading;
+using JetBrains.Annotations;
 
 namespace James.Testing.Rest
 {
     public class Request
     {
-        private readonly string _uriString;
+        internal readonly string UriString;
         private object _headers;
         private DynamicDictionary _query;
 
         private Request(string uriString)
         {
-            _uriString = uriString;
+            UriString = uriString;
         }
 
         public static Request WithUri(string uriString)
         {
+            new Uri(uriString);
             return new Request(uriString);
+        }
+
+        [StringFormatMethod("uriFormat")]
+        public static Request WithUri(string uriFormat, params object[] args)
+        {
+            return WithUri(string.Format(uriFormat, args));
         }
 
         public Request WithHeaders(dynamic headers)
@@ -50,7 +59,7 @@ namespace James.Testing.Rest
 
         public IResponse<TResponse, TError> Get<TResponse, TError>()
         {
-            return Execute(new GetRequest<TResponse, TError>(_uriString, _headers, _query));
+            return Execute(new GetRequest<TResponse, TError>(UriString, _headers, _query));
         }
 
         public IResponse<dynamic, dynamic> Post(dynamic body)
@@ -65,12 +74,12 @@ namespace James.Testing.Rest
 
         public IResponse<TResponse, TError> Post<TBody, TResponse, TError>(TBody body)
         {
-            return Execute(new PostRequest<TBody, TResponse, TError>(_uriString, body, _headers, _query));
+            return Execute(new PostRequest<TBody, TResponse, TError>(UriString, body, _headers, _query));
         }
 
         public IResponse<dynamic, dynamic> Delete()
         {
-            return Execute(new DeleteRequest<object, object>(_uriString, _headers, _query));
+            return Execute(new DeleteRequest<object, object>(UriString, _headers, _query));
         }
 
         private static IResponse<TResponse, TError> Execute<TResponse, TError>(IRequest<TResponse, TError> request)
