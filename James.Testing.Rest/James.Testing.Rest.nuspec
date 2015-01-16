@@ -10,11 +10,11 @@
     <projectUrl>https://github.com/toddmeinershagen/James.Testing</projectUrl>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <description>$description$</description>
-    <releaseNotes><![CDATA[Added the ability to construct a Request with querystring parameters that are arrays.  Example:  Request.WithUri("http://someuri.com").WithQuery(new { id= 2, codes = new[]{123, 456} }) would render as http://someuri.com?id=2&codes=123&codes=456 added by using ]]></releaseNotes>
+    <releaseNotes><![CDATA[Added overload for WithUri() that accepts a list of objects to format the url.  Example:  Request.WithUri("http://someuri.com/{0}", 12345) would render as http://someuri.com/12345.]]></releaseNotes>
     <copyright>Copyright  2014</copyright>
     <tags>test .net dotnet testing rest</tags>
     <dependencies>
-      <dependency id="James.Testing" version="1.0.7.0"></dependency>
+      <dependency id="James.Testing" version="1.0.9.0"></dependency>
     </dependencies>
   </metadata>
 </package>
