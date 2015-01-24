@@ -10,7 +10,7 @@
     <projectUrl>https://github.com/toddmeinershagen/James.Testing</projectUrl>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <description>$description$</description>
-    <releaseNotes><![CDATA[Added overload for WithUri() that accepts a list of objects to format the url.  Example:  Request.WithUri("http://someuri.com/{0}", 12345) would render as http://someuri.com/12345.]]></releaseNotes>
+    <releaseNotes><![CDATA[Added the ability to make a request with a different MediaTypeFormatter using the .WithFormatter() method for custom serialization techniques.]]></releaseNotes>
     <copyright>Copyright  2014</copyright>
     <tags>test .net dotnet testing rest</tags>
     <dependencies>

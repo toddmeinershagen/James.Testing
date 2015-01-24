@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Net.Http.Formatting;
 using System.Threading;
 using JetBrains.Annotations;
 
@@ -9,6 +10,7 @@ namespace James.Testing.Rest
         internal readonly string UriString;
         private object _headers;
         private DynamicDictionary _query;
+        private MediaTypeFormatter _formatter;
 
         private Request(string uriString)
         {
@@ -47,6 +49,12 @@ namespace James.Testing.Rest
             return this;
         }
 
+        public Request WithFormatter(MediaTypeFormatter formatter)
+        {
+            _formatter = formatter;
+            return this;
+        }
+
         public IResponse<dynamic, dynamic> Get()
         {
             return Get<dynamic, dynamic>();
@@ -59,7 +67,7 @@ namespace James.Testing.Rest
 
         public IResponse<TResponse, TError> Get<TResponse, TError>()
         {
-            return Execute(new GetRequest<TResponse, TError>(UriString, _headers, _query));
+            return Execute(new GetRequest<TResponse, TError>(UriString, _headers, _query, _formatter));
         }
 
         public IResponse<dynamic, dynamic> Post(dynamic body)

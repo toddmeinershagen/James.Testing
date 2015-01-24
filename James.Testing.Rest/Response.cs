@@ -1,7 +1,10 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Net;
 using System.Net.Http;
+using System.Net.Http.Formatting;
 using System.Net.Http.Headers;
+using System.Runtime.CompilerServices;
 
 namespace James.Testing.Rest
 {
@@ -12,8 +15,15 @@ namespace James.Testing.Rest
         public HttpResponseHeaders Headers { get; private set; }
         public TError Error { get; private set; }
 
+        public IEnumerable<MediaTypeFormatter> Formatters { get; private set; }
+
         public Response(HttpResponseMessage response)
+            : this(response, null)
+        {}
+
+        public Response(HttpResponseMessage response, MediaTypeFormatter formatter)
         {
+            Formatters = new[] {formatter ?? new JsonMediaTypeFormatter()};
             StatusCode = response.StatusCode;
             Headers = response.Headers;
 
@@ -61,8 +71,8 @@ namespace James.Testing.Rest
                     return (T)(result as object);
                 }
             }
-            
-            return content.ReadAsAsync<T>().Result;
+           
+            return content.ReadAsAsync<T>(Formatters).Result;
         }
     }
 }

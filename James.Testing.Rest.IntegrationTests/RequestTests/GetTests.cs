@@ -2,9 +2,11 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Net.Http.Formatting;
 using FluentAssertions;
 using James.Testing.Rest.IntegrationTests.Models;
 using Nancy;
+using Newtonsoft.Json;
 using NUnit.Framework;
 using HttpStatusCode = System.Net.HttpStatusCode;
 
@@ -85,6 +87,45 @@ namespace James.Testing.Rest.IntegrationTests.RequestTests
                 .Verify(r => r.Body.firstName == "Tammy")
                 .Verify(r => r.Body.lastName == "Bennett")
                 .Verify(r => r.Body.dateOfBirth == "11/23/1972 12:00:00 AM");
+        }
+
+        [Test]
+        public void given_uri_for_existing_resource_with_custom_mediatypeformatter_when_getting_should_return_resource_properly()
+        {
+            Request
+                .WithUri(GetUriString(GetModule.QueryResource))
+                .WithQueryValue("FirstName", "Todd")
+                .WithQueryValue("LastName", "Meinershagen")
+                .WithFormatter(new JsonMediaTypeFormatter
+                {
+                    SerializerSettings = new JsonSerializerSettings
+                    {
+                        Converters = new List<JsonConverter> {new PersonConverter()}
+                    }
+                })
+                .Get<IPerson>()
+                .VerifyThat(r => r.StatusCode.Should().Be(HttpStatusCode.OK))
+                .VerifyThat(r => r.Body.FirstName.Should().Be("Todd"))
+                .VerifyThat(r => r.Body.LastName.Should().Be("Meinershagen"));
+        }
+
+        public class PersonConverter : JsonConverter
+        {
+            public override bool CanConvert(Type objectType)
+            {
+                return objectType == typeof(IPerson);
+            }
+
+            public override object ReadJson(JsonReader reader, Type objectType, object existingValue,
+                JsonSerializer serializer)
+            {
+                return serializer.Deserialize<Person>(reader);
+            }
+
+            public override void WriteJson(JsonWriter writer, object value, JsonSerializer serializer)
+            {
+                throw new NotImplementedException();
+            }
         }
 
         [Test]
