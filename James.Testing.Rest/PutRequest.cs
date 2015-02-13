@@ -3,11 +3,11 @@ using System.Net.Http;
 
 namespace James.Testing.Rest
 {
-    internal class PostRequest<TBody, TResponse, TError> : RequestBase<TResponse, TError>
+    internal class PutRequest<TBody, TResponse, TError> : RequestBase<TResponse, TError>
     {
         private readonly TBody _body;
 
-        public PostRequest(string uriString, TBody body, object headers, DynamicDictionary query)
+        public PutRequest(string uriString, TBody body, object headers, DynamicDictionary query)
             : base(uriString, headers, query)
         {
             _body = body;
@@ -15,7 +15,7 @@ namespace James.Testing.Rest
 
         protected override HttpRequestMessage GetRequestMessage(Uri uri)
         {
-            return new HttpRequestMessage(HttpMethod.Post, uri.PathAndQuery)
+            return new HttpRequestMessage(HttpMethod.Put, uri.PathAndQuery)
             {
                 Content = new ObjectContent<TBody>(_body, Formatter)
             };

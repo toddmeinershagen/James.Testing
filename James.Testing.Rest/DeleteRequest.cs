@@ -9,10 +9,9 @@ namespace James.Testing.Rest
             : base(uriString, headers, query)
         {}
 
-        protected override IResponse<TResponse, TError> GetResponse(Uri uri, HttpClient client)
+        protected override HttpRequestMessage GetRequestMessage(Uri uri)
         {
-            var response = client.DeleteAsync(uri.PathAndQuery).Result;
-            return new Response<TResponse, TError>(response);
+            return new HttpRequestMessage(HttpMethod.Delete, uri.PathAndQuery);
         }
     }
 }

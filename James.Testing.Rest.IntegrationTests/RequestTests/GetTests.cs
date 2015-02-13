@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Net.Http.Formatting;
+using System.Threading;
 using FluentAssertions;
 using James.Testing.Rest.IntegrationTests.Models;
 using Nancy;
@@ -109,6 +110,18 @@ namespace James.Testing.Rest.IntegrationTests.RequestTests
                 .VerifyThat(r => r.Body.LastName.Should().Be("Meinershagen"));
         }
 
+        [TestCase(0)]
+        [TestCase(2)]
+        [TestCase(5)]
+        public void given_uri_for_existing_resource_when_getting_should_return_with_execution_time(int seconds)
+        {
+            Request
+                .WithUri(GetUriString(GetModule.ExecutionResource))
+                .WithQuery(new {Seconds = seconds})
+                .Get<Guid>()
+                .VerifyThat(r => r.ExecutionTime.Should().BeCloseTo(TimeSpan.FromSeconds(seconds), 500));
+        }
+
         public class PersonConverter : JsonConverter
         {
             public override bool CanConvert(Type objectType)
@@ -196,6 +209,7 @@ namespace James.Testing.Rest.IntegrationTests.RequestTests
         public const string HeadersResource = "Headers";
         public const string DynamicResource = "Dynamic";
         public const string QueryResource = "Query";
+        public const string ExecutionResource = "Execution";
         public static Guid BadRequestId = Guid.NewGuid();
         public static Guid UnsupportedMediaExceptionId = Guid.NewGuid();
 
@@ -250,6 +264,12 @@ namespace James.Testing.Rest.IntegrationTests.RequestTests
             {
                 var filePath = Path.Combine(Environment.CurrentDirectory, "SampleEstimate.pdf");
                 return Response.FromByteArray(File.ReadAllBytes(filePath), "application/pdf");
+            }; 
+
+            Get[ExecutionResource] = _ =>
+            {
+                Thread.Sleep(TimeSpan.FromSeconds(Request.Query.Seconds));
+                return Guid.NewGuid();
             };
         }
     }

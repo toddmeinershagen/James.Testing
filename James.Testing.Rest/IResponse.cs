@@ -1,4 +1,5 @@
-﻿using System.Net.Http.Headers;
+﻿using System;
+using System.Net.Http.Headers;
 
 namespace James.Testing.Rest
 {
@@ -8,5 +9,7 @@ namespace James.Testing.Rest
         System.Net.HttpStatusCode StatusCode { get; }
         HttpResponseHeaders Headers { get; }
         TError Error { get; }
+
+        TimeSpan ExecutionTime { get; }
     }
 }

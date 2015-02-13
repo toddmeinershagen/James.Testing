@@ -1,5 +1,7 @@
 ﻿using System;
+using System.Diagnostics;
 using System.Net.Http.Formatting;
+using System.Text;
 using System.Threading;
 using JetBrains.Annotations;
 
@@ -85,6 +87,21 @@ namespace James.Testing.Rest
             return Execute(new PostRequest<TBody, TResponse, TError>(UriString, body, _headers, _query));
         }
 
+        public IResponse<dynamic, dynamic> Put(dynamic body)
+        {
+            return Put<object, object, object>(body);
+        }
+
+        public IResponse<TResponse, string> Put<TBody, TResponse>(TBody body)
+        {
+            return Put<TBody, TResponse, string>(body);
+        }
+
+        public IResponse<TResponse, TError> Put<TBody, TResponse, TError>(TBody body)
+        {
+            return Execute(new PutRequest<TBody, TResponse, TError>(UriString, body, _headers, _query));
+        }
+
         public IResponse<dynamic, dynamic> Delete()
         {
             return Execute(new DeleteRequest<object, object>(UriString, _headers, _query));
@@ -112,6 +129,20 @@ namespace James.Testing.Rest
         public static IResponse<dynamic, dynamic> CurrentResponse()
         {
             return CurrentResponse<dynamic, dynamic>();
+        }
+
+        public override string ToString()
+        {
+            var builder = new StringBuilder();
+            builder.Append(new Uri(UriString).With(_query).ToString());
+
+            var headerValues = _headers.GetHeaderValues();
+            foreach (var key in headerValues.AllKeys)
+            {
+                builder.AppendFormat("{0}{1}: {2}", Environment.NewLine, key, headerValues[key]);
+            }
+
+            return builder.ToString();
         }
     }
 }

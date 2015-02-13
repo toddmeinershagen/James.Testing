@@ -1,5 +1,7 @@
 using System;
+using System.Diagnostics;
 using System.Net.Http;
+using System.Net.Http.Formatting;
 using System.Net.Http.Headers;
 
 namespace James.Testing.Rest
@@ -9,16 +11,18 @@ namespace James.Testing.Rest
         private readonly string _uriString;
         private readonly object _headers;
         private readonly DynamicDictionary _query;
-
-        protected RequestBase(string uriString, object headers)
-            : this(uriString, headers, null)
-        {}
+        protected readonly MediaTypeFormatter Formatter;
 
         protected RequestBase(string uriString, object headers, DynamicDictionary query)
+            : this (uriString, headers, query, new JsonMediaTypeFormatter())
+        { }
+
+        protected RequestBase(string uriString, object headers, DynamicDictionary query, MediaTypeFormatter formatter)
         {
             _uriString = uriString;
             _headers = headers;
             _query = query;
+            Formatter = formatter;
         }
 
         public IResponse<TResponse, TError> Execute()
@@ -27,7 +31,13 @@ namespace James.Testing.Rest
             using (var client = GetClient(uri))
             {
                 client.AddHeaders(_headers);
-                return GetResponse(uri.With(_query), client);
+
+                var watch = new Stopwatch();
+                watch.Start();
+                var response = client.SendAsync(GetRequestMessage(uri.With(_query))).Result;
+                watch.Stop();
+
+                return new Response<TResponse, TError>(response, Formatter, watch.Elapsed);
             }
         }
 
@@ -43,6 +53,6 @@ namespace James.Testing.Rest
             return client;
         }
 
-        protected abstract IResponse<TResponse, TError> GetResponse(Uri uri, HttpClient client);
+        protected abstract HttpRequestMessage GetRequestMessage(Uri uri);
     }
 }

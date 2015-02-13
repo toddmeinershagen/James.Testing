@@ -82,7 +82,8 @@
     <Compile Include="Models\Person.cs" />
     <Compile Include="RequestTests\PostTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="RequestTests\RequestPostTests.cs" />
+    <Compile Include="RequestTests\PutTests.cs" />
+    <Compile Include="RequestTests\RequestTests.cs" />
     <Compile Include="RequestTests\WithUriTests.cs" />
     <Compile Include="UriExtensionsTests.cs" />
   </ItemGroup>

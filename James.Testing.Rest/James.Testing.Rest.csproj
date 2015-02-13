@@ -51,6 +51,7 @@
   <ItemGroup>
     <Compile Include="DynamicDictionary.cs" />
     <Compile Include="HttpClientExtensions.cs" />
+    <Compile Include="PutRequest.cs" />
     <Compile Include="RequestBase.cs" />
     <Compile Include="DeleteRequest.cs" />
     <Compile Include="GetRequest.cs" />

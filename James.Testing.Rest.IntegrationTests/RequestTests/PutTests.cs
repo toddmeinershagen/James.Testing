@@ -1,24 +1,24 @@
 ﻿using System;
 using System.Linq;
-using FluentAssertions;
 using James.Testing.Rest.IntegrationTests.Models;
 using Nancy;
 using Nancy.ModelBinding;
 using NUnit.Framework;
 using HttpStatusCode = System.Net.HttpStatusCode;
+using FluentAssertions;
 
 namespace James.Testing.Rest.IntegrationTests.RequestTests
 {
     [TestFixture]
-    public class given_basic_request_when_posting : HostTestFixture
+    public class given_basic_request_when_putting : HostTestFixture
     {
         [TestFixtureSetUp]
         public void Init()
         {
-            var person = new Person {FirstName = "Tammy", LastName = "Meinershagen"};
+            var person = new Person { FirstName = "Tammy", LastName = "Meinershagen" };
             Request
-                .WithUri(GetUriString(PostModule.Resource))
-                .Post<Person, Guid>(person);
+                .WithUri(GetUriString(PutModule.Resource))
+                .Put<Person, Guid>(person);
         }
 
         [Test]
@@ -26,7 +26,7 @@ namespace James.Testing.Rest.IntegrationTests.RequestTests
         {
             Request
                 .CurrentResponse<Guid>()
-                .Verify(r => r.StatusCode == HttpStatusCode.Created);
+                .Verify(r => r.StatusCode == HttpStatusCode.OK);
         }
 
         [Test]
@@ -66,7 +66,7 @@ namespace James.Testing.Rest.IntegrationTests.RequestTests
     }
 
     [TestFixture]
-    public class given_request_with_headers_when_posting : HostTestFixture
+    public class given_request_with_headers_when_putting : HostTestFixture
     {
         [TestFixtureSetUp]
         public void Init()
@@ -74,8 +74,8 @@ namespace James.Testing.Rest.IntegrationTests.RequestTests
             var person = new Person { FirstName = "Tammy", LastName = "Meinershagen" };
             Request
                 .WithUri(GetUriString(PostModule.Resource))
-                .WithHeaders(new {x_requested_with = "XMLHttpRequest"})
-                .Post<Person, Guid>(person);
+                .WithHeaders(new { x_requested_with = "XMLHttpRequest" })
+                .Put<Person, Guid>(person);
         }
 
         [Test]
@@ -83,7 +83,7 @@ namespace James.Testing.Rest.IntegrationTests.RequestTests
         {
             Request
                 .CurrentResponse<Guid>()
-                .Verify(r => r.StatusCode == HttpStatusCode.Created);
+                .Verify(r => r.StatusCode == HttpStatusCode.OK);
         }
 
         [Test]
@@ -116,7 +116,7 @@ namespace James.Testing.Rest.IntegrationTests.RequestTests
     }
 
     [TestFixture]
-    public class given_request_with_query_when_posting : HostTestFixture
+    public class given_request_with_query_when_putting : HostTestFixture
     {
         [TestFixtureSetUp]
         public void Init()
@@ -124,8 +124,8 @@ namespace James.Testing.Rest.IntegrationTests.RequestTests
             var person = new Person { FirstName = "Tammy", LastName = "Meinershagen" };
             Request
                 .WithUri(GetUriString(PostModule.Resource))
-                .WithQuery(new { Id = 1})
-                .Post<Person, Guid>(person);
+                .WithQuery(new { Id = 1 })
+                .Put<Person, Guid>(person);
         }
 
         [Test]
@@ -133,7 +133,7 @@ namespace James.Testing.Rest.IntegrationTests.RequestTests
         {
             Request
                 .CurrentResponse<Guid>()
-                .Verify(r => r.StatusCode == HttpStatusCode.Created);
+                .Verify(r => r.StatusCode == HttpStatusCode.OK);
         }
 
         [Test]
@@ -166,15 +166,15 @@ namespace James.Testing.Rest.IntegrationTests.RequestTests
     }
 
     [TestFixture]
-    public class given_resource_with_bad_request_when_posting : HostTestFixture
+    public class given_resource_with_bad_request_when_putting : HostTestFixture
     {
         [TestFixtureSetUp]
         public void Init()
         {
-            var person = new Person {FirstName = "Todd", LastName = "Meinershagen"};
+            var person = new Person { FirstName = "Todd", LastName = "Meinershagen" };
             Request
                 .WithUri(GetUriString(PostModule.Resource))
-                .Post<Person, Guid>(person);
+                .Put<Person, Guid>(person);
         }
 
         [Test]
@@ -188,22 +188,22 @@ namespace James.Testing.Rest.IntegrationTests.RequestTests
 
             Request
                 .WithUri(GetUriString(PostModule.Resource))
-                .Post<Person, Guid, Error>(new Person {FirstName = "Todd", LastName = "Meinershagen"})
+                .Post<Person, Guid, Error>(new Person { FirstName = "Todd", LastName = "Meinershagen" })
                 .Verify(r => r.Body == Guid.Empty)
                 .Verify(r => r.StatusCode == HttpStatusCode.BadRequest)
                 .Verify(r => r.Error.Message == "People with first name 'Todd' are not allowed.");
         }
     }
 
-    public class PostModule : NancyModule
+    public class PutModule : NancyModule
     {
         public const string Resource = "People";
         public static bool HeaderSent = false;
         public static bool QuerySent = false;
 
-        public PostModule()
+        public PutModule()
         {
-            Post[Resource] = _ =>
+            Put[Resource] = _ =>
             {
                 var model = this.Bind<Person>();
 
@@ -218,14 +218,14 @@ namespace James.Testing.Rest.IntegrationTests.RequestTests
 
                     return Negotiate
                         .WithModel(personId)
-                        .WithStatusCode(Nancy.HttpStatusCode.Created)
+                        .WithStatusCode(Nancy.HttpStatusCode.OK)
                         .WithHeader("Location", location);
                 }
 
                 return Negotiate
                     .WithStatusCode(Nancy.HttpStatusCode.BadRequest)
-                    .WithModel(new Error {Message = string.Format("People with first name '{0}' are not allowed.", model.FirstName)});
-                
+                    .WithModel(new Error { Message = string.Format("People with first name '{0}' are not allowed.", model.FirstName) });
+
             };
         }
     }

@@ -14,18 +14,23 @@ namespace James.Testing.Rest
         public HttpStatusCode StatusCode { get; private set; }
         public HttpResponseHeaders Headers { get; private set; }
         public TError Error { get; private set; }
-
-        public IEnumerable<MediaTypeFormatter> Formatters { get; private set; }
+        public TimeSpan ExecutionTime { get; set; }
+        private IEnumerable<MediaTypeFormatter> Formatters { get; set; }
 
         public Response(HttpResponseMessage response)
             : this(response, null)
-        {}
+        {} 
 
         public Response(HttpResponseMessage response, MediaTypeFormatter formatter)
+            : this (response, formatter, TimeSpan.Zero)
+        { }
+
+        public Response(HttpResponseMessage response, MediaTypeFormatter formatter, TimeSpan executionTime)
         {
             Formatters = new[] {formatter ?? new JsonMediaTypeFormatter()};
             StatusCode = response.StatusCode;
             Headers = response.Headers;
+            ExecutionTime = executionTime;
 
             if (response.IsSuccessStatusCode)
             {

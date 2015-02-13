@@ -45,6 +45,13 @@ namespace James.Testing.Rest.IntegrationTests.RequestTests
                 .CurrentResponse()
                 .Verify(r => string.IsNullOrEmpty(r.Body));
         }
+
+        public void should_return_execution_time()
+        {
+            Request
+                .CurrentResponse()
+                .VerifyThat(r => r.ExecutionTime.Should().BeGreaterThan(TimeSpan.Zero));
+        }
     }
 
     [TestFixture]
