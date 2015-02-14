@@ -10,7 +10,7 @@
     <projectUrl>https://github.com/toddmeinershagen/James.Testing</projectUrl>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <description>$description$</description>
-    <releaseNotes><![CDATA[Added PUT requests, ExecutionTime to response object, and ToString for Request so that clients can debug the request before sending.]]></releaseNotes>
+    <releaseNotes><![CDATA[Fixed a small bug in the Request.ToString() method to display the encoded values when rendering the url.]]></releaseNotes>
     <copyright>Copyright  2014</copyright>
     <tags>test .net dotnet testing rest</tags>
     <dependencies>

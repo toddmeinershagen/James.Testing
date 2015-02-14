@@ -134,7 +134,8 @@ namespace James.Testing.Rest
         public override string ToString()
         {
             var builder = new StringBuilder();
-            builder.Append(new Uri(UriString).With(_query).ToString());
+            var uriWithQuery = new Uri(UriString).With(_query);
+            builder.Append(uriWithQuery.AbsoluteUri);
 
             var headerValues = _headers.GetHeaderValues();
             foreach (var key in headerValues.AllKeys)

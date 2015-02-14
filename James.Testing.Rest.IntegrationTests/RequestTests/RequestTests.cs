@@ -21,10 +21,10 @@ namespace James.Testing.Rest.IntegrationTests.RequestTests
         {
             Request
                 .WithUri("http://localhost:1234/Estimates")
-                .WithQuery(new {FacilityId = 48223, AccountNumber = "AC12345"})
+                .WithQuery(new {FacilityId = 48223, AccountNumber = "AC12345 1234 1234"})
                 .ToString()
                 .Should()
-                .Be(String.Format("http://localhost:1234/Estimates?FacilityId={0}&AccountNumber={1}", 48223, "AC12345"));
+                .Be(String.Format("http://localhost:1234/Estimates?FacilityId={0}&AccountNumber={1}", 48223, "AC12345%201234%201234"));
         }
 
         [Test]
