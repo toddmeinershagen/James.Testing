@@ -15,7 +15,8 @@ namespace James.Testing.Rest
         public HttpResponseHeaders Headers { get; private set; }
         public TError Error { get; private set; }
         public TimeSpan ExecutionTime { get; set; }
-        private IEnumerable<MediaTypeFormatter> Formatters { get; set; }
+	    public HttpContentHeaders ContentHeaders { get; set; }
+	    private IEnumerable<MediaTypeFormatter> Formatters { get; set; }
 
         public Response(HttpResponseMessage response)
             : this(response, null)
@@ -31,6 +32,7 @@ namespace James.Testing.Rest
             StatusCode = response.StatusCode;
             Headers = response.Headers;
             ExecutionTime = executionTime;
+	        ContentHeaders = response.Content.Headers;
 
             if (response.IsSuccessStatusCode)
             {

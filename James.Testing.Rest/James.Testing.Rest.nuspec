@@ -10,7 +10,7 @@
     <projectUrl>https://github.com/toddmeinershagen/James.Testing</projectUrl>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <description>$description$</description>
-    <releaseNotes><![CDATA[Fixed a small bug in the Request.ToString() method to display the encoded values when rendering the url.]]></releaseNotes>
+    <releaseNotes><![CDATA[Add IResponse.ContentHeaders to allow testers to validate the headers for the content.]]></releaseNotes>
     <copyright>Copyright  2014</copyright>
     <tags>test .net dotnet testing rest</tags>
     <dependencies>

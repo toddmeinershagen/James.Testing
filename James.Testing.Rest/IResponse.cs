@@ -11,5 +11,7 @@ namespace James.Testing.Rest
         TError Error { get; }
 
         TimeSpan ExecutionTime { get; }
+
+		HttpContentHeaders ContentHeaders { get; }
     }
 }

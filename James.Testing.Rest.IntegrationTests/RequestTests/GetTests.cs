@@ -200,6 +200,14 @@ namespace James.Testing.Rest.IntegrationTests.RequestTests
                 .CurrentResponse<byte[]>()
                 .Verify(r => r.Headers.Any());
         }
+
+		[Test]
+		public void should_return_with_content_headers()
+		{
+			Request
+				.CurrentResponse<byte[]>()
+				.VerifyThat(r => r.ContentHeaders.ContentType.MediaType.Should().Be("application/pdf"));
+		}
     }
 
     public class GetModule : NancyModule
