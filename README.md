@@ -14,7 +14,6 @@ The current set of libraries is as follows:  (click on each link to learn more)
 * [![NuGet version (James.Testing)](https://img.shields.io/nuget/v/James.Testing.svg?style=flat)](https://www.nuget.org/packages/James.Testing/)
 [![NuGet version (James.Testing)](https://img.shields.io/nuget/dt/James.Testing.svg?style=flat)](https://www.nuget.org/packages/James.Testing/)
 [James.Testing](https://github.com/toddmeinershagen/James.Testing/wiki/James.Testing) - general purpose action extensions to aid in testing.
-
 * [![NuGet version (James.Testing.Rest)](https://img.shields.io/nuget/v/James.Testing.Rest.svg?style=flat)](https://www.nuget.org/packages/James.Testing.Rest/)
 [![NuGet version (James.Testing.Rest)](https://img.shields.io/nuget/dt/James.Testing.Rest.svg?style=flat)](https://www.nuget.org/packages/James.Testing.Rest/)
 [James.Testing.Rest](https://github.com/toddmeinershagen/James.Testing/wiki/James.Testing.Rest) - a dead simple client for rest-based services.
