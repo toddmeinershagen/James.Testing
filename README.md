@@ -1,6 +1,6 @@
 James.Testing
 =============
-![James.Testing](https://avatars3.githubusercontent.com/u/12504634?v=3&u=f511cd5f07123fd8cff1bcd4a5b980b14ddb0652&s=140 "James.Testing")
+![james-testing-with-dash-icon](https://cloud.githubusercontent.com/assets/177508/8513711/7ff612f0-233b-11e5-9a1d-8ded3b6fd443.png)
 
 James.Testing is a set of libraries of test utilities named after the author who wrote the book of James in the Bible.
 
