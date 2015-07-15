@@ -10,7 +10,7 @@
     <projectUrl>https://github.com/toddmeinershagen/James.Testing</projectUrl>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <description>$description$</description>
-    <releaseNotes><![CDATA[Add IResponse.ContentHeaders to allow testers to validate the headers for the content.]]></releaseNotes>
+    <releaseNotes><![CDATA[Fixing post request to set the content type for more strict services.]]></releaseNotes>
     <copyright>Copyright  2014</copyright>
     <tags>test .net dotnet testing rest</tags>
     <dependencies>
