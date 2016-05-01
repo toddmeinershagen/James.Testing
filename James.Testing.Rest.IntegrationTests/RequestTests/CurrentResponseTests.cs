@@ -11,7 +11,7 @@ namespace James.Testing.Rest.IntegrationTests.RequestTests
     public class CurrentResponseTests : HostTestFixture
     {
         [Test]
-        public void given_no_previous_request_when_getting_current_response_should_return_null()
+        public void _given_no_previous_request_when_getting_current_response_should_return_null()
         {
             Action action = () => Request
                 .CurrentResponse<Guid>()

@@ -6,11 +6,12 @@
     <title>$title$</title>
     <authors>$author$</authors>
     <owners>$author$</owners>
-    <licenseUrl>https://github.com/toddmeinershagen/James.Testing/LICENSE</licenseUrl>
-    <projectUrl>https://github.com/toddmeinershagen/James.Testing</projectUrl>
+    <licenseUrl>https://github.com/qualitysoftwarematters/James.Testing/blob/master/LICENSE</licenseUrl>
+    <projectUrl>https://github.com/qualitysoftwarematters/James.Testing</projectUrl>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <description>$description$</description>
-    <releaseNotes><![CDATA[Fixing post request to set the content type for more strict services.]]></releaseNotes>
+    <releaseNotes><![CDATA[0.7.9 Updated the license url.
+    0.7.8 Fixing post request to set the content type for more strict services.]]></releaseNotes>
     <copyright>Copyright  2014</copyright>
     <tags>test .net dotnet testing rest</tags>
     <dependencies>
