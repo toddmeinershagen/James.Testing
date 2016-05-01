@@ -6,8 +6,8 @@
     <title>$title$</title>
     <authors>$author$</authors>
     <owners>$author$</owners>
-    <licenseUrl>https://github.com/qualitysoftwarematters/James.Testing/blob/master/LICENSE</licenseUrl>
-    <projectUrl>https://github.com/qualitysoftwarematters/James.Testing</projectUrl>
+    <licenseUrl>https://github.com/toddmeinershagen/James.Testing/blob/master/LICENSE</licenseUrl>
+    <projectUrl>https://github.com/toddmeinershagen/James.Testing</projectUrl>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <description>$description$</description>
     <releaseNotes><![CDATA[0.7.9 Updated the license url.
