@@ -1,6 +1,4 @@
-﻿using System.Text;
-using iTextSharp.text.pdf;
-using iTextSharp.text.pdf.parser;
+﻿using Spire.Pdf;
 
 namespace James.Testing.Pdf
 {
@@ -36,18 +34,13 @@ namespace James.Testing.Pdf
         {
             if (_pageText != null) 
                 return _pageText;
-            
-            using (var pdfReader = new PdfReader(_content.Buffer))
+
+            using (var document = new PdfDocument(_content.Buffer))
             {
-                var strategy = new SimpleTextExtractionStrategy();
-                var pageText = PdfTextExtractor.GetTextFromPage(pdfReader, _number, strategy);
-                pageText =
-                    Encoding.UTF8.GetString(Encoding.Convert(Encoding.Default, Encoding.UTF8,
-                        Encoding.Default.GetBytes(pageText)));
-
-                _pageText = pageText;
+                var page = document.Pages[_number - 1];
+                _pageText = page.ExtractText();
             }
-
+            
             return _pageText;
         }
     }

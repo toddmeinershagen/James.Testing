@@ -1,4 +1,4 @@
-﻿using iTextSharp.text.pdf;
+﻿using Spire.Pdf;
 
 namespace James.Testing.Pdf
 {
@@ -15,9 +15,9 @@ namespace James.Testing.Pdf
 
         public bool Pages()
         {
-            using (var reader = new PdfReader(_content.Buffer))
+            using (var document = new PdfDocument(_content.Buffer))
             {
-                return reader.NumberOfPages == _number;
+                return document.Pages.Count == _number;
             }
         }
     }
