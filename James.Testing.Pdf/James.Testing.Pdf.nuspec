@@ -10,11 +10,12 @@
     <projectUrl>https://github.com/toddmeinershagen/James.Testing/wiki/James.Testing.Pdf</projectUrl>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <description>$description$</description>
-    <releaseNotes>Initial release includes .</releaseNotes>
+    <releaseNotes>1.0.3 - Refactored to use Spire.Pdf instead of iTextSharp due to licensing.  Note - this version only allows working with pdf documents up to 10 pages.</releaseNotes>
     <copyright>Copyright  2014</copyright>
     <tags>test .net dotnet testing pdf</tags>
     <dependencies>
       <dependency id="James.Testing" version="1.0.7.0"></dependency>
+      <dependency id="Spire.PDF" version="3.7.106"></dependency>
     </dependencies>
   </metadata>
 </package>
