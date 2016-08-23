@@ -10,7 +10,8 @@
     <projectUrl>https://github.com/toddmeinershagen/James.Testing</projectUrl>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <description>$description$</description>
-    <releaseNotes><![CDATA[0.7.9 Updated the license url.
+    <releaseNotes><![CDATA[0.7.10 Added an overload to the dynamic Post and Put methods to accept no body parameter.
+    0.7.9 Updated the license url.
     0.7.8 Fixing post request to set the content type for more strict services.]]></releaseNotes>
     <copyright>Copyright  2014</copyright>
     <tags>test .net dotnet testing rest</tags>

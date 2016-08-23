@@ -17,7 +17,7 @@ namespace James.Testing.Rest
         {
             return new HttpRequestMessage(HttpMethod.Post, uri.PathAndQuery)
             {
-                Content = new ObjectContent<TBody>(_body, Formatter, "application/json")
+                Content = new ObjectContent<TBody>(_body, Formatter)
             };
         }
     }

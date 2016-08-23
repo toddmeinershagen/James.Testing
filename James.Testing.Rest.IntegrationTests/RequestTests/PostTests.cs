@@ -46,7 +46,7 @@ namespace James.Testing.Rest.IntegrationTests.RequestTests
         {
             Request
                 .CurrentResponse<Guid>()
-                .Verify(r => r.Headers.Location.PathAndQuery.Contains("People"));
+                .Verify(r => r.Headers.Location.PathAndQuery.Contains(PostModule.Resource));
         }
 
         [Test]
@@ -103,7 +103,7 @@ namespace James.Testing.Rest.IntegrationTests.RequestTests
         {
             Request
                 .CurrentResponse<Guid>()
-                .Verify(r => r.Headers.Location.PathAndQuery.Contains("People"));
+                .Verify(r => r.Headers.Location.PathAndQuery.Contains(PostModule.Resource));
         }
 
         [Test]
@@ -121,19 +121,18 @@ namespace James.Testing.Rest.IntegrationTests.RequestTests
         [TestFixtureSetUp]
         public void Init()
         {
-            var person = new Person { FirstName = "Tammy", LastName = "Meinershagen" };
             Request
                 .WithUri(GetUriString(PostModule.Resource))
-                .WithQuery(new { Id = 1})
-                .Post<Person, Guid>(person);
+                .WithQuery(new { Id = PostModule.NoBodyId})
+                .Post();
         }
 
         [Test]
         public void should_return_created_status()
         {
             Request
-                .CurrentResponse<Guid>()
-                .Verify(r => r.StatusCode == HttpStatusCode.Created);
+                .CurrentResponse()
+                .VerifyThat(r => r.StatusCode.Should().Be(HttpStatusCode.Created));
         }
 
         [Test]
@@ -152,16 +151,16 @@ namespace James.Testing.Rest.IntegrationTests.RequestTests
         public void should_return_location_header()
         {
             Request
-                .CurrentResponse<Guid>()
-                .Verify(r => r.Headers.Location.PathAndQuery.Contains("People"));
+                .CurrentResponse()
+                .VerifyThat(r => r.Headers.Location.PathAndQuery.Should().Contain(PostModule.Resource));
         }
 
         [Test]
         public void should_return_content_in_body()
         {
             Request
-                .CurrentResponse<Guid>()
-                .Verify(r => r.Body != Guid.Empty);
+                .CurrentResponse()
+                .VerifyThat(r => ((object)r.Body).Should().NotBeNull());
         }
     }
 
@@ -197,17 +196,18 @@ namespace James.Testing.Rest.IntegrationTests.RequestTests
 
     public class PostModule : NancyModule
     {
-        public const string Resource = "People";
+        public const string Resource = "People_Post";
         public static bool HeaderSent = false;
         public static bool QuerySent = false;
+        public static readonly string NoBodyId = "2";
 
         public PostModule()
         {
             Post[Resource] = _ =>
             {
-                var model = this.Bind<Person>();
-
-                if (model.FirstName == "Tammy")
+                var model = Request.Query.Id == NoBodyId ? null : this.Bind<Person>();
+                
+                if (model == null || model.FirstName == "Tammy")
                 {
                     var personId = Guid.NewGuid();
                     var location = string.Format("{0}://{1}/{2}/{3}", Request.Url.Scheme, Request.Url.HostName, Resource,

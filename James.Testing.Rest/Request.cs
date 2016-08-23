@@ -72,6 +72,11 @@ namespace James.Testing.Rest
             return Execute(new GetRequest<TResponse, TError>(UriString, _headers, _query, _formatter));
         }
 
+        public IResponse<dynamic, dynamic> Post()
+        {
+            return Post(null);
+        }
+
         public IResponse<dynamic, dynamic> Post(dynamic body)
         {
             return Post<object, object, object>(body);
@@ -85,6 +90,11 @@ namespace James.Testing.Rest
         public IResponse<TResponse, TError> Post<TBody, TResponse, TError>(TBody body)
         {
             return Execute(new PostRequest<TBody, TResponse, TError>(UriString, body, _headers, _query));
+        }
+
+        public IResponse<dynamic, dynamic> Put()
+        {
+            return Put(null);
         }
 
         public IResponse<dynamic, dynamic> Put(dynamic body)

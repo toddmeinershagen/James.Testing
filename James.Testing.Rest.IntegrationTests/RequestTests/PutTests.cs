@@ -32,13 +32,13 @@ namespace James.Testing.Rest.IntegrationTests.RequestTests
         [Test]
         public void should_not_send_header()
         {
-            PostModule.HeaderSent.Should().BeFalse();
+            PutModule.HeaderSent.Should().BeFalse();
         }
 
         [Test]
         public void should_not_send_query()
         {
-            PostModule.QuerySent.Should().BeFalse();
+            PutModule.QuerySent.Should().BeFalse();
         }
 
         [Test]
@@ -46,7 +46,7 @@ namespace James.Testing.Rest.IntegrationTests.RequestTests
         {
             Request
                 .CurrentResponse<Guid>()
-                .Verify(r => r.Headers.Location.PathAndQuery.Contains("People"));
+                .Verify(r => r.Headers.Location.PathAndQuery.Contains(PutModule.Resource));
         }
 
         [Test]
@@ -73,7 +73,7 @@ namespace James.Testing.Rest.IntegrationTests.RequestTests
         {
             var person = new Person { FirstName = "Tammy", LastName = "Meinershagen" };
             Request
-                .WithUri(GetUriString(PostModule.Resource))
+                .WithUri(GetUriString(PutModule.Resource))
                 .WithHeaders(new { x_requested_with = "XMLHttpRequest" })
                 .Put<Person, Guid>(person);
         }
@@ -89,13 +89,13 @@ namespace James.Testing.Rest.IntegrationTests.RequestTests
         [Test]
         public void should_send_header()
         {
-            PostModule.HeaderSent.Should().BeTrue();
+            PutModule.HeaderSent.Should().BeTrue();
         }
 
         [Test]
         public void should_not_send_query()
         {
-            PostModule.QuerySent.Should().BeFalse();
+            PutModule.QuerySent.Should().BeFalse();
         }
 
         [Test]
@@ -103,7 +103,7 @@ namespace James.Testing.Rest.IntegrationTests.RequestTests
         {
             Request
                 .CurrentResponse<Guid>()
-                .Verify(r => r.Headers.Location.PathAndQuery.Contains("People"));
+                .Verify(r => r.Headers.Location.PathAndQuery.Contains(PutModule.Resource));
         }
 
         [Test]
@@ -121,47 +121,46 @@ namespace James.Testing.Rest.IntegrationTests.RequestTests
         [TestFixtureSetUp]
         public void Init()
         {
-            var person = new Person { FirstName = "Tammy", LastName = "Meinershagen" };
             Request
-                .WithUri(GetUriString(PostModule.Resource))
-                .WithQuery(new { Id = 1 })
-                .Put<Person, Guid>(person);
+                .WithUri(GetUriString(PutModule.Resource))
+                .WithQuery(new { Id = PutModule.NoBodyId })
+                .Put();
         }
 
         [Test]
-        public void should_return_created_status()
+        public void should_return_ok_status()
         {
             Request
-                .CurrentResponse<Guid>()
-                .Verify(r => r.StatusCode == HttpStatusCode.OK);
+                .CurrentResponse()
+                .VerifyThat(r => r.StatusCode.Should().Be(HttpStatusCode.OK));
         }
 
         [Test]
         public void should_not_send_header()
         {
-            PostModule.HeaderSent.Should().BeFalse();
+            PutModule.HeaderSent.Should().BeFalse();
         }
 
         [Test]
         public void should_send_query()
         {
-            PostModule.QuerySent.Should().BeTrue();
+            PutModule.QuerySent.Should().BeTrue();
         }
 
         [Test]
         public void should_return_location_header()
         {
             Request
-                .CurrentResponse<Guid>()
-                .Verify(r => r.Headers.Location.PathAndQuery.Contains("People"));
+                .CurrentResponse()
+                .VerifyThat(r => r.Headers.Location.PathAndQuery.Should().Contain(PutModule.Resource));
         }
 
         [Test]
         public void should_return_content_in_body()
         {
             Request
-                .CurrentResponse<Guid>()
-                .Verify(r => r.Body != Guid.Empty);
+                .CurrentResponse()
+                .VerifyThat(r => ((object)r.Body).Should().NotBeNull());
         }
     }
 
@@ -173,7 +172,7 @@ namespace James.Testing.Rest.IntegrationTests.RequestTests
         {
             var person = new Person { FirstName = "Todd", LastName = "Meinershagen" };
             Request
-                .WithUri(GetUriString(PostModule.Resource))
+                .WithUri(GetUriString(PutModule.Resource))
                 .Put<Person, Guid>(person);
         }
 
@@ -197,17 +196,18 @@ namespace James.Testing.Rest.IntegrationTests.RequestTests
 
     public class PutModule : NancyModule
     {
-        public const string Resource = "People";
+        public const string Resource = "People_Put";
         public static bool HeaderSent = false;
         public static bool QuerySent = false;
+        public static readonly string NoBodyId = "2";
 
         public PutModule()
         {
             Put[Resource] = _ =>
             {
-                var model = this.Bind<Person>();
+                var model = Request.Query.Id == NoBodyId ? null : this.Bind<Person>();
 
-                if (model.FirstName == "Tammy")
+                if (model == null || model.FirstName == "Tammy")
                 {
                     var personId = Guid.NewGuid();
                     var location = string.Format("{0}://{1}/{2}/{3}", Request.Url.Scheme, Request.Url.HostName, Resource,
