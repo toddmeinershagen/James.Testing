@@ -1,3 +1,4 @@
+[![AppVeyor branch](https://img.shields.io/appveyor/ci/gruntjs/grunt/master.svg?maxAge=2592000)]()
 James.Testing
 =============
 ![james-testing-with-dash-icon](https://cloud.githubusercontent.com/assets/177508/8513723/ff72bf92-233b-11e5-9d30-e4b5c6faebb1.png)
