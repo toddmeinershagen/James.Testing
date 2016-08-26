@@ -1,5 +1,6 @@
 ﻿using System;
 using System.ServiceModel;
+using System.Threading;
 using System.Threading.Tasks;
 using NUnit.Framework;
 
@@ -18,7 +19,10 @@ namespace James.Testing.Wcf.IntegrationTests.ServiceTests
                     .Verify(r => r == null);
             };
 
-            Parallel.Invoke(action);
+            var operation = new ThreadStart(action);
+            var thread = new Thread(operation);
+            thread.Start();
+            thread.Join();
         }
 
         [Test]
