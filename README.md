@@ -1,4 +1,4 @@
-<img src="https://ci.appveyor.com/api/projects/status/github/toddmeinershagen/James.Testing?branch=master&svg=true"><a href="https://github.com/toddmeinershagen/James.Testing/blob/master/README.md" alt="James.Testing master branch"></a></img>
+<a href="https://github.com/toddmeinershagen/James.Testing/blob/master/README.md" alt="James.Testing master branch"><img src="https://ci.appveyor.com/api/projects/status/github/toddmeinershagen/James.Testing?branch=master&svg=true"></a>
 
 James.Testing
 =============
