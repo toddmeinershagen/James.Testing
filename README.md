@@ -1,4 +1,4 @@
-[![James.Testing master branch](https://ci.appveyor.com/api/projects/status/github/toddmeinershagen/James.Testing?svg=true)]()
+[![James.Testing master branch](https://ci.appveyor.com/api/projects/status/github/toddmeinershagen/James.Testing?branch=master&svg=true)]()
 
 James.Testing
 =============
