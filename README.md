@@ -1,4 +1,4 @@
-[https://ci.appveyor.com/api/projects/status/github/toddmeinershagen/James.Testing?svg=true](https://ci.appveyor.com/api/projects/status/github/toddmeinershagen/James.Testing?svg=true)
+[![James.Testing](https://ci.appveyor.com/api/projects/status/github/toddmeinershagen/James.Testing?svg=true)](https://ci.appveyor.com/api/projects/status/github/toddmeinershagen/James.Testing?svg=true)
 
 James.Testing
 =============
